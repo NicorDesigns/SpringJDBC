@@ -21,7 +21,9 @@
 4. Open up IntelliJ and check out the https://github.com/NicorDesigns/SpringJDBC/tree/main-start-mariadb-setup branch
 
 
-    
+5. Set up a database Connection in IntelliJ to the charityDB using the 'springjdbcapp' user git
+
+6. Inside our Maven Parent POM create a new sub-module named MariaDBConnect 
 
     
     
