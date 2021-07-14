@@ -18,7 +18,7 @@
           9. SHOW GRANTS FOR springjdbcapp@localhost;
           10. EXIT
 
-4. Open up IntelliJ and check out the https://github.com/NicorDesigns/SpringJDBC/tree/main-start-mariadb-setup branch
+4. Open up IntelliJ and check out the (https://github.com/NicorDesigns/SpringJDBC/tree/main-start-mariadb-setup branch)
 
 
 5. Set up a database Connection in IntelliJ to the charityDB using the 'springjdbcapp' user
