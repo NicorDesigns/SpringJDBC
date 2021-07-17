@@ -4,6 +4,9 @@
   <groupId>com.nicordesigns</groupId>
   <artifactId>SpringJDBC</artifactId>
   <version>1.0-SNAPSHOT</version>
+  <modules>
+    <module>MariaDBConnect</module>
+  </modules>
   <packaging>pom</packaging>
   <name>SpringJDBC</name>
 </project>
