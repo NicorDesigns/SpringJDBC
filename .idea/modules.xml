@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SpringJDBC.iml" filepath="$PROJECT_DIR$/.idea/SpringJDBC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" filepath="$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SpringJDBC.iml" filepath="$PROJECT_DIR$/SpringJDBC.iml" />
     </modules>
   </component>
 </project>
