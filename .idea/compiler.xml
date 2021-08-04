@@ -6,13 +6,15 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="JDBC1" />
         <module name="MariaDBConnect" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="MariaDBConnect" target="15" />
+      <module name="JDBC1" target="11" />
+      <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
-      <module name="SpringJDBC" target="1.5" />
+      <module name="SpringJDBC" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
