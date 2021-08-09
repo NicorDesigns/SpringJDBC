@@ -25,6 +25,7 @@ _Slide 1_
     Create Junit5 Unit Test for Stubbed method
     Fill out the logic to use same DriverManager used in IntelliJ
     Add the Junit5 dependency to the POM
+    Update Maven Build to the latest for Junit 5
 
 ##### 5 Update Maven POMs where required
 
