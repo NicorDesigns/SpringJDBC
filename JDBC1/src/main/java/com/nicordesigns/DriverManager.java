@@ -62,12 +62,13 @@ public class DriverManager {
   }
 
   public Connection getConnection() {
+
     Connection conn = null;
     Properties connectionProps = new Properties();
     connectionProps.put("user", this.getUserName());
     connectionProps.put("password", this.getPassword());
 
-    if (this.getDbms().equals("mariadb")) {
+    if (this.dbms.equals("mariadb")) {
       try {
         conn =
             java.sql.DriverManager.getConnection(
@@ -84,6 +85,7 @@ public class DriverManager {
         sqlException.printStackTrace();
       }
     }
+
     System.out.println("Connected to database");
     return conn;
   }

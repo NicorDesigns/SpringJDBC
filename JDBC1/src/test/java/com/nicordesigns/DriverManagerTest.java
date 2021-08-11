@@ -13,7 +13,7 @@ class DriverManagerTest {
   private final DriverManager driverManager = new DriverManager();
 
   @BeforeEach
-  void setUpDBConnection() {
+  void setUp() {
     driverManager.setDbms("mariadb");
     driverManager.setUserName("root");
     driverManager.setPassword("secret");
@@ -28,8 +28,8 @@ class DriverManagerTest {
     try (Connection sqlConnection = driverManager.getConnection()) {
       System.out.println("SQL Connection Catalog: " + sqlConnection.getCatalog());
       assertEquals("charityDB", sqlConnection.getCatalog());
-    } catch (SQLException throwable) {
-      throwable.printStackTrace();
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
     }
   }
 }
