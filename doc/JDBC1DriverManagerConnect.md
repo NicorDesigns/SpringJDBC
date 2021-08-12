@@ -27,7 +27,7 @@ _Slide 1_
     Add the Junit5 dependency to the POM
     Update Maven Build to the latest for Junit 5
 
-##### 5 Update Maven POMs where required
+### 5 Update Maven POMs where required
 
     Ensure we are using Java 11 (OpenJDK 11)
     Add the required Junit5 Build Plugins to the parent POM
