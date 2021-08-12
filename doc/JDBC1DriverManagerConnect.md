@@ -30,4 +30,6 @@ _Slide 1_
 ##### 5 Update Maven POMs where required
 
     Ensure we are using Java 11 (OpenJDK 11)
+    Add the required Junit5 Build Plugins to the parent POM
+    Add the JUNIT 5 API and Engine dependencies to JDBC1 POM
 
