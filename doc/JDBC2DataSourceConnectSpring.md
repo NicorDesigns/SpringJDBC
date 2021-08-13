@@ -33,7 +33,7 @@ _Slide 1_
     Update the Maven POM dependencies with "Spring Context" and "Spring JDBC"
     Also add the MariaDB Client dependency as was used in JDBC1 Module
 
-### 4 Define DataSource Class and its Properties in application.xml
+### 4 Define DataSource Class and its Properties in application.xml resources
 
         <bean id="dataSource" class="org.mariadb.jdbc.MariaDbDataSource">
             <property name="serverName" value="localhost"/>

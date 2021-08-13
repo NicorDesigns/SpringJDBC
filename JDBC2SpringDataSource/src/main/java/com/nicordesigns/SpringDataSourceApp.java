@@ -31,8 +31,8 @@ public class SpringDataSourceApp {
     String catalogName = null;
     try (Connection connection = dataSource.getConnection()) {
       catalogName = connection.getCatalog();
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
     }
 
     return catalogName;
