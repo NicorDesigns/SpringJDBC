@@ -8,10 +8,12 @@
         <outputRelativeToContentRoot value="true" />
         <module name="JDBC1" />
         <module name="MariaDBConnect" />
+        <module name="JDBC2SpringDataSource" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JDBC1" target="11" />
+      <module name="JDBC2SpringDataSource" target="11" />
       <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
       <module name="SpringJDBC" target="11" />
