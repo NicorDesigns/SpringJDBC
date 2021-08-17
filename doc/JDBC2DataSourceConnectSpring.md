@@ -18,7 +18,7 @@
          For example, if the data source were moved to a different server, all the system administrator would have to do 
          is set the serverName property to the new server name."
 
-### Connection URLs
+### Connection Setup
 
 _Slide 1_
 
