@@ -1,8 +1,10 @@
 ## JDBC DataSource Spring Connection
 
+#### From https://docs.oracle.com/javase/tutorial/jdbc/basics/sqldatasources.html
+
         "DataSource objects can provide connection pooling and distributed transactions. 
          This functionality is essential for enterprise database computing."
-        
+        `
         "Because of its properties, a DataSource object is a better alternative than the DriverManager class for getting
          a connection. 
          Programmers no longer have to hard code the driver name or JDBC URL in their applications, which makes them 
