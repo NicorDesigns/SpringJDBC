@@ -3,7 +3,7 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset2" name="Spring Application Context" removed="false">
+        <fileset id="fileset" name="Application" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/application.xml</file>
         </fileset>
       </configuration>
@@ -29,6 +29,5 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.11.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.2.11.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.2.11.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.2.11.RELEASE" level="project" />
   </component>
 </module>

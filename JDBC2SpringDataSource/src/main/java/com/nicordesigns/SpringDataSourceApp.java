@@ -18,9 +18,15 @@ public class SpringDataSourceApp {
 
     DataSource dataSource = context.getBean(DataSource.class);
     System.out.println(dataSource);
+
     springDataSourceApp.setDataSource(dataSource);
+
     String catalogName = springDataSourceApp.getCatalogName(dataSource);
     System.out.println("Catalog Name: " + catalogName);
+  }
+
+  public DataSource getDataSource() {
+    return dataSource;
   }
 
   public void setDataSource(DataSource dataSource) {
@@ -34,7 +40,6 @@ public class SpringDataSourceApp {
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
     }
-
     return catalogName;
   }
 }
