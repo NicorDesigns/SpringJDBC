@@ -49,25 +49,36 @@ _Slide 1_
     Update to use Java 11
     Add the MariaDB Client dependency as was used in JDBC1, JDBC2 Module
 
-### 4 Define DataSource Class and its Properties in application.xml resources
+### 4 Define DataSource Class and its Properties in the Tomcat 8.5 CONTEXT.XML resource element
 
-        <bean id="dataSource" class="org.mariadb.jdbc.MariaDbDataSource">
-            <property name="serverName" value="localhost"/>
-            <property name="portNumber" value="3306"/>
-            <property name="url" value="jdbc:mariadb://localhost:3306/charityDB"/>
-            <property name="user" value="root"/>
-            <property name="password" value="secret"/>
-        </bean>
+         <Resource name="jdbc/charityDB" auth="Container" type="javax.sql.DataSource"
+               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+               username="root" password="secret" driverClassName="org.mariadb.jdbc.Driver"
+               url="jdbc:mariadb://localhost:3306/charityDB"/>
 
-### 4 Write SpringDataSourceApp that gets JDBC Connection from DataSource bean
+### 4 Update the generated HelloServlet.java to get the CharityDB CatalogName from the JNDI defined DB
 
-    Create class SpringDataSourceApp with main() method
-    Get ApplicationContext context from Spring XML defined bean
-    Get DataSource from ApplicationContext (XML defined Spring bean)
-    Run the main method in IntelliJ to test
-    Update the SpringDataSourceApp POM and add exec-maven-plugin to the build section to run the main method using 
-    mvn:exec
+    Update web.xml
 
+        <description>MariaDB Test App</description>
+        <resource-ref>
+            <description>DB Connection</description>
+            <res-ref-name>jdbc/charityDB</res-ref-name>
+            <res-type>javax.sql.DataSource</res-type>
+            <res-auth>Container</res-auth>
+        </resource-ref>
+    
+    
+    Create a DBUtil class where we:
+
+    Get ApplicationContext context from the Tomcate Web Server
+    Get DataSource from Tomcat ApplicationContext
+        
+        InitialContext ctx = new InitialContext();
+        MariaDbDataSource ds = (MariaDbDataSource) ctx.lookup("java:comp/env/jdbc/charityDB");
+			
+    Change the generated HelloServlet.java to display the CatalogName
+    
     
      
         
