@@ -48,6 +48,7 @@ _Slide 1_
 
     Update to use Java 11
     Add the MariaDB Client dependency as was used in JDBC1, JDBC2 Module
+    Update the Parent POM
 
 ### 4 Define DataSource Class and its Properties in the Tomcat 8.5 CONTEXT.XML resource element
 
@@ -76,6 +77,8 @@ _Slide 1_
         
         InitialContext ctx = new InitialContext();
         MariaDbDataSource ds = (MariaDbDataSource) ctx.lookup("java:comp/env/jdbc/charityDB");
+
+    Get the Catalog Name from the DB like we did in JDBC1 & JDBC2
 			
     Change the generated HelloServlet.java to display the CatalogName
     
