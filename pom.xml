@@ -17,6 +17,7 @@
     <module>MariaDBConnect</module>
     <module>JDBC1</module>
     <module>JDBC2SpringDataSource</module>
+    <module>JDBC3TomcatJndiDataSource</module>
   </modules>
 
   <packaging>pom</packaging>
