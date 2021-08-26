@@ -18,6 +18,7 @@
     <module>JDBC1</module>
     <module>JDBC2SpringDataSource</module>
     <module>JDBC3TomcatJndiDataSource</module>
+    <module>JDBC4EmbeddedTomcatJndiDataSource</module>
   </modules>
 
   <packaging>pom</packaging>

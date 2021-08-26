@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/JDBC1/JDBC1.iml" filepath="$PROJECT_DIR$/JDBC1/JDBC1.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC2SpringDataSource/JDBC2SpringDataSource.iml" filepath="$PROJECT_DIR$/JDBC2SpringDataSource/JDBC2SpringDataSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC3TomcatJndiDataSource/JDBC3TomcatJndiDataSource.iml" filepath="$PROJECT_DIR$/JDBC3TomcatJndiDataSource/JDBC3TomcatJndiDataSource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/JDBC4EmbeddedTomcatJndiDataSource.iml" filepath="$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/JDBC4EmbeddedTomcatJndiDataSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" filepath="$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringJDBC.iml" filepath="$PROJECT_DIR$/SpringJDBC.iml" />
     </modules>
