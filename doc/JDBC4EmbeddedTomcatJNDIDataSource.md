@@ -8,6 +8,9 @@ _Slide 1_
 
 #### File -> New Module -> Maven (No Archetype Selected)
 
-#### ArtifactId : JDBC4EmbeddedTomcatJndiDataSource 
+#### ArtifactId : JDBC4EmbeddedTomcatJndiDataSource
+
+New package com.nicordesigns
+
 
 
