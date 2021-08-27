@@ -12,5 +12,12 @@ _Slide 1_
 
 New package com.nicordesigns
 
+Re-use DatabaseUtil class from previous tutorial Add Tomcat Dependencies to Maven POM Add modified HelloServlet Create
+new web app directory underneath main
+
+
+
+
+
 
 
