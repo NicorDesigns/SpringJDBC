@@ -7,7 +7,7 @@
         discovered, loaded and registered, relieving you from the need to load the database driver explicitly before 
         you create a JDBC connection. 
 
-        **However, the implementation is fundamentally broken in all Java versions for a servlet container environment.** 
+        _However, the implementation is fundamentally broken in all Java versions for a servlet container environment._ 
 
         The problem is that java.sql.DriverManager will scan for the drivers only once.
 
