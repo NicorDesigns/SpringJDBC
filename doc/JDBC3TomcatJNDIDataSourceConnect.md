@@ -28,8 +28,6 @@
 
 ### JNDI Connection defined in Tomcat context.xml
 
-_Slide 1_
-
 ### 1 Create a new Java Enterprise Module (JDBC3TomcatJndiDataSource)
 
 ### 2 Use IntelliJ
