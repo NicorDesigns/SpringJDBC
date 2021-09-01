@@ -25,9 +25,13 @@
 ### 5 Modify the generated HelloServlet.java to get the CharityDB CatalogName from the main method JNDI
 
     Re-use DatabaseUtil class from previous tutorial 
-    Add modified HelloServlet Create
-    new web app directory underneath main
+    Add modified HelloServlet 
+    Create new web app directory underneath main
 
+### 6 Run the App main method
+
+    First in IntelliJ
+    Second from the command line using the Maven Execute plugin
 
 
 
