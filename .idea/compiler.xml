@@ -9,6 +9,7 @@
         <module name="JDBC4EmbeddedTomcatJndiDataSource" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC2SpringDataSource" />
+        <module name="JDBC4EmbeddedTomacatJndiDataSource" />
         <module name="JDBC1" />
         <module name="MariaDBConnect" />
       </profile>
@@ -17,6 +18,7 @@
       <module name="JDBC1" target="11" />
       <module name="JDBC2SpringDataSource" target="11" />
       <module name="JDBC3TomcatJndiDataSource" target="11" />
+      <module name="JDBC4EmbeddedTomacatJndiDataSource" target="11" />
       <module name="JDBC4EmbeddedTomcatJndiDataSource" target="11" />
       <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
