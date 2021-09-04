@@ -7,19 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(
-    name = "MyServlet",
-    urlPatterns = {"/hello"})
+@WebServlet(name = "hello", value = "/hello")
 public class HelloServlet extends HttpServlet {
+  private String message;
 
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    String catalogName = DatabaseUtil.getCatalogName();
-    ServletOutputStream out = resp.getOutputStream();
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    String catalogName = DBUtil.getCatalogName();
+
+    ServletOutputStream out = response.getOutputStream();
     out.write("servlet says hello - ".getBytes());
     out.write(catalogName.getBytes());
     out.write("/n".getBytes());
     out.flush();
     out.close();
   }
+
+  public void destroy() {}
 }

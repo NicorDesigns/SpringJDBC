@@ -16,30 +16,6 @@ import java.nio.file.Path;
 
 public class Main {
 
-  private static File getRootFolder() {
-    try {
-      File root;
-      String runningJarPath =
-          Main.class
-              .getProtectionDomain()
-              .getCodeSource()
-              .getLocation()
-              .toURI()
-              .getPath()
-              .replaceAll("\\\\", "/");
-      int lastIndexOf = runningJarPath.lastIndexOf("/target/");
-      if (lastIndexOf < 0) {
-        root = new File("");
-      } else {
-        root = new File(runningJarPath.substring(0, lastIndexOf));
-      }
-      System.out.println("application resolved root folder: " + root.getAbsolutePath());
-      return root;
-    } catch (URISyntaxException ex) {
-      throw new RuntimeException(ex);
-    }
-  }
-
   public static void main(String[] args) throws Exception {
 
     File root = getRootFolder();
@@ -107,5 +83,29 @@ public class Main {
 
     tomcat.start();
     tomcat.getServer().await();
+  }
+
+  private static File getRootFolder() {
+    try {
+      File root;
+      String runningJarPath =
+          Main.class
+              .getProtectionDomain()
+              .getCodeSource()
+              .getLocation()
+              .toURI()
+              .getPath()
+              .replaceAll("\\\\", "/");
+      int lastIndexOf = runningJarPath.lastIndexOf("/target/");
+      if (lastIndexOf < 0) {
+        root = new File("");
+      } else {
+        root = new File(runningJarPath.substring(0, lastIndexOf));
+      }
+      System.out.println("application resolved root folder: " + root.getAbsolutePath());
+      return root;
+    } catch (URISyntaxException ex) {
+      throw new RuntimeException(ex);
+    }
   }
 }
