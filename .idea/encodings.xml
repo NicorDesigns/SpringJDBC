@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/JDBC2SpringDataSource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JDBC2SpringDataSource/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JDBC3TomcatJndiDataSource/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MariaDBConnect/src/main/resources" charset="UTF-8" />
   </component>
 </project>

@@ -26,9 +26,7 @@
         discover and deregister any JDBC drivers loaded by the web application class loader when the web application 
         stops. However, it is expected that applications do this for themselves via a ServletContextListener."
 
-### Connection URLs
-
-_Slide 1_
+### JNDI Connection defined in Tomcat context.xml
 
 ### 1 Create a new Java Enterprise Module (JDBC3TomcatJndiDataSource)
 
@@ -57,7 +55,7 @@ _Slide 1_
                username="root" password="secret" driverClassName="org.mariadb.jdbc.Driver"
                url="jdbc:mariadb://localhost:3306/charityDB"/>
 
-### 4 Update the generated HelloServlet.java to get the CharityDB CatalogName from the JNDI defined DB
+### 5 Update the generated HelloServlet.java to get the CharityDB CatalogName from the JNDI defined DB
 
     Update web.xml
 

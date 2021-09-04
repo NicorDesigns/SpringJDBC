@@ -1,8 +1,9 @@
-package com.nicordesigns.jdbc3tomcatjndidatasource;
+package com.nicordesigns;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.util.Objects;
 
 public class DBUtil {
 
@@ -22,7 +23,7 @@ public class DBUtil {
     Connection conn = createConnection();
     String catalogName;
     try {
-      catalogName = conn.getCatalog();
+      catalogName = Objects.requireNonNull(conn).getCatalog();
       conn.close();
 
     } catch (Exception e) {
