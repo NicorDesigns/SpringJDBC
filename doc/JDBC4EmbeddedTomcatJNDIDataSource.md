@@ -31,8 +31,7 @@
 ### 6 Run the App main method
 
     First in IntelliJ
-    Second from the command line using the Maven Execute plugin
-
+    
 
 
 
