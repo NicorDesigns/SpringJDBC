@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JDBC4EmbeddedTomcatJndiDataSource" />
+        <module name="JDBC5EmbeddedTomcatSpringJndiDataSource" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
@@ -19,6 +20,7 @@
       <module name="JDBC3TomcatJndiDataSource" target="11" />
       <module name="JDBC4EmbeddedTomcatJndiDataSource" target="11" />
       <module name="JDBC5EmbeddedTomcatSpringDataSource" target="11" />
+      <module name="JDBC5EmbeddedTomcatSpringJndiDataSource" target="11" />
       <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
       <module name="SpringJDBC" target="11" />

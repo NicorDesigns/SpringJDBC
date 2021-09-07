@@ -1,0 +1,22 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5">
+
+    <display-name>Tomcat Servlet Application</display-name>
+
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>com.nicordesigns.HelloServlet</servlet-class>
+    </servlet>
+
+    <resource-ref>
+        <res-ref-name>jdbc/charityDB</res-ref-name>
+        <res-type>org.mariadb.jdbc.MariaDbDataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+</web-app>

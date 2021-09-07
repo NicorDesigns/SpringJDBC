@@ -1,6 +1,6 @@
-## Embedded Tomcat JDBC JNDI DataSource Connection defined in a regular java main method.
+## Embedded Tomcat JDBC JNDI Spring DataSource Connection defined in a regular java main method.
 
-### 1 Create a new Java Maven Module (JDBC4EmbeddedTomcatJndiDataSource)
+### 1 Create a new Java Maven Module (JDBC5EmbeddedTomcatSpringJndiDataSource)
 
 ### 2 Use IntelliJ
 
