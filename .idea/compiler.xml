@@ -11,7 +11,6 @@
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
         <module name="MariaDBConnect" />
-        <module name="JDBC5EmbeddedTomcatSpringDataSource" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
