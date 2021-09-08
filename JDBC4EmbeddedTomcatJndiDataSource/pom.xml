@@ -57,7 +57,7 @@
     </dependencies>
 
     <build>
-        <finalName>JDBC4EmbeddedTomacatJndiDataSource</finalName>
+        <finalName>JDBC4EmbeddedTomcatJndiDataSource</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -79,6 +79,28 @@
                             <goals>
                                 <goal>assemble</goal>
                             </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                            <configuration>
+                                <mainClass>com.nicordesigns.Main</mainClass>
+                                <systemProperties>
+                                    <systemProperty>
+                                        <key>org.apache.catalina.startup.EXIT_ON_INIT_FAILURE</key>
+                                        <value>true</value>
+                                    </systemProperty>
+                                </systemProperties>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
