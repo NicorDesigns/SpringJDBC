@@ -76,19 +76,6 @@ public class Main {
 
     System.out.println("buildDataSource: " + dataSource);
 
-    //    ContextResource mariaDBSource = new ContextResource();
-    //    mariaDBSource.setName("jdbc/charityDB");
-    //    mariaDBSource.setAuth("Container");
-    //    mariaDBSource.setType("javax.sql.DataSource");
-    //    mariaDBSource.setProperty("driverClassName", "org.mariadb.jdbc.Driver");
-    //    mariaDBSource.setProperty(
-    //        "url", "jdbc:mariadb://localhost:3306/charityDB?user=root&password=secret");
-    //    mariaDBSource.setProperty("factory", "org.apache.tomcat.jdbc.pool.DataSourceFactory");
-    //    mariaDBSource.setProperty("user", "root");
-    //    mariaDBSource.setProperty("password", "secret");
-    //
-    //    ctx.getNamingResources().addResource(mariaDBSource);
-
     tomcat.start();
     tomcat.getServer().await();
   }
