@@ -58,7 +58,9 @@
 
     <build>
         <finalName>JDBC4EmbeddedTomcatJndiDataSource</finalName>
+
         <pluginManagement>
+
             <plugins>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -92,19 +94,18 @@
                             <goals>
                                 <goal>java</goal>
                             </goals>
-                            <configuration>
-                                <mainClass>com.nicordesigns.Main</mainClass>
-                                <systemProperties>
-                                    <systemProperty>
-                                        <key>org.apache.catalina.startup.EXIT_ON_INIT_FAILURE</key>
-                                        <value>true</value>
-                                    </systemProperty>
-                                </systemProperties>
-                            </configuration>
                         </execution>
                     </executions>
+                    <configuration>
+                        <mainClass>com.nicordesigns.Main</mainClass>
+                        <systemProperties>
+                            <systemProperty>
+                                <key>org.apache.catalina.startup.EXIT_ON_INIT_FAILURE</key>
+                                <value>true</value>
+                            </systemProperty>
+                        </systemProperties>
+                    </configuration>
                 </plugin>
-
             </plugins>
         </pluginManagement>
 
