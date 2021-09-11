@@ -1,16 +1,16 @@
 package nicordesigns;
 
-import javax.naming.InitialContext;
+import org.springframework.web.context.WebApplicationContext;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.Objects;
 
 public class DBUtil {
 
-  private static Connection createConnection() {
+  private static Connection createConnection(WebApplicationContext ctx) {
     try {
-      InitialContext ctx = new InitialContext();
-      DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/charityDB");
+      DataSource ds = (DataSource) ctx.getBean("dataSource");
       return ds.getConnection();
     } catch (Exception exc) {
       exc.printStackTrace();
@@ -18,9 +18,9 @@ public class DBUtil {
     }
   }
 
-  public static String getCatalogName() {
+  public static String getCatalogName(WebApplicationContext ctx) {
 
-    Connection conn = createConnection();
+    Connection conn = createConnection(ctx);
     String catalogName;
     try {
       catalogName = Objects.requireNonNull(conn).getCatalog();

@@ -1,5 +1,8 @@
 package nicordesigns;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +16,10 @@ public class HelloServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    String catalogName = DBUtil.getCatalogName();
+    WebApplicationContext ctx =
+        WebApplicationContextUtils.findWebApplicationContext(getServletContext());
+
+    String catalogName = DBUtil.getCatalogName(ctx);
 
     ServletOutputStream out = response.getOutputStream();
     out.write("servlet says hello - ".getBytes());

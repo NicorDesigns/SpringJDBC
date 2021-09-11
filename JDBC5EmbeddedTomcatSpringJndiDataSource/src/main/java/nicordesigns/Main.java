@@ -7,10 +7,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.EmptyResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.sql.DataSource;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -19,8 +16,6 @@ import java.nio.file.Path;
 public class Main {
 
   public static void main(String[] args) throws Exception {
-
-    ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
     File root = getRootFolder();
     System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
@@ -69,12 +64,7 @@ public class Main {
 
     resources.addPreResources(resourceSet);
     ctx.setResources(resources);
-
     tomcat.enableNaming();
-
-    DataSource dataSource = context.getBean(DataSource.class);
-
-    System.out.println("buildDataSource: " + dataSource);
 
     tomcat.start();
     tomcat.getServer().await();
