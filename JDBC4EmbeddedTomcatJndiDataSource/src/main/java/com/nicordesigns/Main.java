@@ -233,4 +233,28 @@ public class Main {
       throw new RuntimeException(ex);
     }
   }
+
+  private static File getRootFolder() {
+    try {
+      File root;
+      String runningJarPath =
+          Main.class
+              .getProtectionDomain()
+              .getCodeSource()
+              .getLocation()
+              .toURI()
+              .getPath()
+              .replaceAll("\\\\", "/");
+      int lastIndexOf = runningJarPath.lastIndexOf("/target/");
+      if (lastIndexOf < 0) {
+        root = new File("");
+      } else {
+        root = new File(runningJarPath.substring(0, lastIndexOf));
+      }
+      System.out.println("application resolved root folder: " + root.getAbsolutePath());
+      return root;
+    } catch (URISyntaxException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
 }

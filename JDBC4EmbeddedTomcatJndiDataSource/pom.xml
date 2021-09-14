@@ -9,7 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>JDBC4EmbeddedTomcatJndiDataSource</artifactId>
+    <artifactId>JDBC4EmbeddedTomacatJndiDataSource</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -57,8 +57,10 @@
     </dependencies>
 
     <build>
-        <finalName>JDBC2E</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+        <finalName>JDBC4EmbeddedTomcatJndiDataSource</finalName>
+
+        <pluginManagement>
+
             <plugins>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -82,8 +84,32 @@
                         </execution>
                     </executions>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>java</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <mainClass>com.nicordesigns.Main</mainClass>
+                        <systemProperties>
+                            <systemProperty>
+                                <key>org.apache.catalina.startup.EXIT_ON_INIT_FAILURE</key>
+                                <value>true</value>
+                            </systemProperty>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
+
+
     </build>
 
 
