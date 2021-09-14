@@ -70,7 +70,7 @@
                         <assembleDirectory>target</assembleDirectory>
                         <programs>
                             <program>
-                                <mainClass>com.nicordesigns.Main</mainClass>
+                                <mainClass>com.Main</mainClass>
                                 <name>webapp</name>
                             </program>
                         </programs>
@@ -97,7 +97,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <mainClass>com.nicordesigns.Main</mainClass>
+                        <mainClass>com.Main</mainClass>
                         <systemProperties>
                             <systemProperty>
                                 <key>org.apache.catalina.startup.EXIT_ON_INIT_FAILURE</key>

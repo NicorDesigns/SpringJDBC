@@ -1,4 +1,4 @@
-package nicordesigns;
+package com.nicordesigns;
 
 import org.springframework.web.context.WebApplicationContext;
 
