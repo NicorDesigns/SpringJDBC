@@ -19,14 +19,14 @@
 
 ### 4  Create the Application with a Main Method that does all the setup and configuration in code
 
-    Where previosly our DataSource was definied in Spring application.xml or Tomcat context.xml we now set the
-    datasource properties in the Main method of our code
+    Where previously our Data Source was definied in Spring application.xml or Tomcat context.xml we now set the
+    configure the datasource in the Main method of our code. Then we will add our datasource to the Tomcat JNDI
+    name space
 
 ### 5 Modify the generated HelloServlet.java to get the CharityDB CatalogName from the main method JNDI
 
     Re-use DatabaseUtil class from previous tutorial 
     Add modified HelloServlet 
-    Create new web app directory underneath main
 
 ### 6 Run the App main method
 
@@ -37,7 +37,7 @@ http://localhost:8080/hello
     Then using the Maven Execute plugin: 
 
     First add the plugin to the modules Maven pom.xml
-    Then execute it from the cpmmand line:  mvn exec:java
+    Then execute it from the command line:  mvn exec:java
 
 https://www.mojohaus.org/exec-maven-plugin/usage.html
 
