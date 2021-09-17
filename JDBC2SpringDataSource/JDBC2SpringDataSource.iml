@@ -6,6 +6,12 @@
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/application.xml</file>
         </fileset>
+        <fileset id="fileset2" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/application.xml</file>
+        </fileset>
+        <fileset id="fileset" name="Application" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/application.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
