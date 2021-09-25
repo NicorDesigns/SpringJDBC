@@ -4,7 +4,6 @@
 
     <display-name>Tomcat Servlet Application</display-name>
 
-
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

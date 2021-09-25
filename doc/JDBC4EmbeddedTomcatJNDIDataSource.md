@@ -19,7 +19,7 @@
 
 ### 4  Create the Application with a Main Method that does all the setup and configuration in code
 
-    Where previosly our DataSource was definied in Spring application.xml or Tomcat context.xml we now set the
+    Where previously our DataSource was definied in Tomcat context.xml we now set the
     datasource properties in the Main method of our code
 
 ### 5 Modify the generated HelloServlet.java to get the CharityDB CatalogName from the main method JNDI
