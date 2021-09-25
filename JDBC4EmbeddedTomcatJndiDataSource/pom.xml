@@ -7,10 +7,9 @@
         <groupId>com.nicordesigns</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>JDBC4EmbeddedTomacatJndiDataSource</artifactId>
-    <packaging>jar</packaging>
+
+    <artifactId>JDBC4EmbeddedTomcatJndiDataSource</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
