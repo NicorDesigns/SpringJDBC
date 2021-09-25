@@ -62,8 +62,12 @@ public class Main {
     tomcat.getServer().await();
   }
 
+  /***
+   * We use hard coded values to add MariaDB to the JNDI Naming of Tomcat context
+   * (We can read it in from Properties if we want to)
+   * @param standardContext of Tomcat
+   */
   private static void addJNDIMariaDBResource(StandardContext standardContext) {
-
     ContextResource mariaDBContextReSource = new ContextResource();
     mariaDBContextReSource.setName("jdbc/charityDB");
     mariaDBContextReSource.setAuth("Container");
@@ -78,16 +82,29 @@ public class Main {
     standardContext.getNamingResources().addResource(mariaDBContextReSource);
   }
 
-  private static WebResourceRoot updateWebResourceRoot(
-      File mainRootFolder, StandardContext standardContext) {
-
+  /***
+   * Get the WebResourceRoot for our running (embedded) instance of Tomcat.
+   *
+   * @param root - the root directory of the Main method
+   * @param ctx - the StandardContext for our Tomcat Server
+   *
+   * @return WebResourceRoot
+   */
+  private static WebResourceRoot updateWebResourceRoot(File root, StandardContext ctx) {
     // Declare an alternative location for your "WEB-INF/classes" dir Servlet 3.0 annotation will
     // work
-    File additionWebInfClassesFolder = new File(mainRootFolder.getAbsolutePath(), "target/classes");
+    File additionWebInfClassesFolder = new File(root.getAbsolutePath(), "target/classes");
 
-    return updateWebResourceRoot(standardContext, additionWebInfClassesFolder);
+    return updateWebResourceRoot(ctx, additionWebInfClassesFolder);
   }
 
+  /***
+   * Add all the classes in the location target/classes to the Web Resource Root.
+   *
+   * @param ctx StandardContext of embedded Tomcat
+   * @param additionWebInfClassesFolder folder location of classes to add to Web Resource Root
+   * @return WebResourceRoot of running instance of Tomcat in Main method
+   */
   private static WebResourceRoot updateWebResourceRoot(
       StandardContext ctx, File additionWebInfClassesFolder) {
     WebResourceRoot resources = new StandardRoot(ctx);
@@ -100,6 +117,13 @@ public class Main {
     return resources;
   }
 
+  /***
+   * Add Web Resource Set to Web Resource Root.
+   *
+   * @param additionWebInfClassesFolder Folder location of classes to add
+   * @param webResourceRoot of our embedded Tomcat web application
+   * @return WebResourceSet of all classes to include in the Tomcat Web Application
+   */
   private static WebResourceSet addWebResourceSetToWebResourceRoot(
       File additionWebInfClassesFolder, WebResourceRoot webResourceRoot) {
     WebResourceSet webResourceSet;
@@ -120,24 +144,43 @@ public class Main {
     return webResourceSet;
   }
 
+  /**
+   * Get and update the Standard Context for our running instance of Tomcat.
+   *
+   * @param tomcat - our running instance
+   * @param webContentFolder - the location of the web application content
+   * @return StandardContext - of Tomcat
+   * @throws ServletException Exception from Servlet
+   */
   private static StandardContext getStandardContext(Tomcat tomcat, File webContentFolder)
       throws ServletException {
-
     StandardContext ctx =
         (StandardContext) tomcat.addWebapp("", webContentFolder.getAbsolutePath());
     ctx.setParentClassLoader(Main.class.getClassLoader());
     return ctx;
   }
 
-  private static File getWebContentFolder(File mainRootFolder) throws IOException {
-
-    File webContentFolder = new File(mainRootFolder.getAbsolutePath(), "src/main/webapp/");
+  /***
+   * Get the web content folder of our Embedded Tomcat web app.
+   *
+   * @param root the directory in which we are running
+   * @return File path location of our web application content
+   * @throws IOException from reading the new Path location
+   */
+  private static File getWebContentFolder(File root) throws IOException {
+    File webContentFolder = new File(root.getAbsolutePath(), "src/main/webapp/");
     if (!webContentFolder.exists()) {
       webContentFolder = Files.createTempDirectory("default-doc-base").toFile();
     }
     return webContentFolder;
   }
 
+  /***
+   * Read the port value from an environment variable
+   * Look for that variable and default to 8080 if it isn't there.
+   *
+   * @return String web port value
+   */
   private static String getWebPort(String webPort) {
 
     if (webPort == null || webPort.isEmpty()) {
@@ -146,7 +189,14 @@ public class Main {
     return webPort;
   }
 
+  /***
+   * Create a temporary file path and name it.
+   *
+   * @return Path a temporary file Path named tomcat-base-dir
+   * @throws IOException on Files create temp directory.
+   */
   private static Path getTempPath(String tempSysPath) throws IOException {
+
     if (tempSysPath == null || !tempSysPath.isEmpty()) {
       tempSysPath = "tomcat-base-dir";
     }
@@ -154,8 +204,11 @@ public class Main {
     return Files.createTempDirectory(tempSysPath);
   }
 
+  /***
+   * Get the folder where the Main class are running.
+   * @return File/Path of the running Jar
+   */
   private static File getMainRootFolder() {
-
     try {
       File root;
       String runningJarPath =

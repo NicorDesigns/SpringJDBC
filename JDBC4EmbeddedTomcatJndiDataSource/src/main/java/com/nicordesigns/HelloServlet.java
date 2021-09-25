@@ -13,7 +13,7 @@ public class HelloServlet extends HttpServlet {
   private String message;
 
   public void init() {
-    message = "Hello : the MariaDB Catalog Name is: " + DatabaseUtil.getCatalogName();
+    message = "Hello : the MariaDB Catalog name is: " + DBUtil.getCatalogName();
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
