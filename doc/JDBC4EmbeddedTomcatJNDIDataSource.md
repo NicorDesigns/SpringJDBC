@@ -37,7 +37,7 @@ http://localhost:8080/hello
     Then using the Maven Execute plugin: 
 
     First add the plugin to the modules Maven pom.xml
-    Then execute it from the cpmmand line:  mvn exec:java
+    Then execute it from the command line:  mvn exec:java
 
 https://www.mojohaus.org/exec-maven-plugin/usage.html
 
