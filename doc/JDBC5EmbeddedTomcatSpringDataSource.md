@@ -1,10 +1,10 @@
 ## Embedded Tomcat JDBC JNDI Spring DataSource Connection defined in a regular java main method.
 
-### 1 Using IntelliJ we create a new Java Maven Module (JDBC5EmbeddedTomcatSpringJndiDataSource)
+### 1 Using IntelliJ we create a new Java Maven Module (JDBC5EmbeddedTomcatSpringDataSource)
 
 #### File -> New Module -> Maven (No Archetype Selected)
 
-#### ArtifactId : JDBC5EmbeddedTomcatJndiDataSource
+#### ArtifactId : JDBC5EmbeddedTomcatDataSource
 
     Create package com.nicordesigns
 
