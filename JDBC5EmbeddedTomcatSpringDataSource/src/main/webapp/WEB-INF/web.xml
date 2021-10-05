@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-    <display-name>Tomcat Servlet Application</display-name>
+    <display-name>JDBC5EmbeddedTomcatSpringDataSource</display-name>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -37,6 +37,17 @@
 
     This time we will use the Maven Execute plugin since we already know how to launc the App from within
     IntelliJ 
+
+    Then using the Maven Execute plugin: 
+
+    
+    First add the plugin to the modules Maven pom.xml
+    Then execute it from the command line:  mvn exec:java
+
+    https://www.mojohaus.org/exec-maven-plugin/usage.html
+
+    http://localhost:8080/hello
+
     
 
 

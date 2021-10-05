@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JDBC4EmbeddedTomcatJndiDataSource" />
-        <module name="JDBC5EmbeddedTomcatSpringJndiDataSource" />
-        <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
         <module name="MariaDBConnect" />
+        <module name="JDBC3TomcatJndiDataSource" />
+        <module name="JDBC5EmbeddedTomcatSpringDataSource" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

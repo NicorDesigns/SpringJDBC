@@ -27,9 +27,9 @@ public class Main {
 
     // 2. Get the root folder of where we are running Main
     File mainRootFolder = getMainRootFolder();
-    System.out.println("application resolved root folder: " + mainRootFolder.getAbsolutePath());
+    System.out.println("Application resolved root folder: " + mainRootFolder.getAbsolutePath());
 
-    // 3. Launch the embedded Tomcat and set its base directory to a Temporary created Path
+    // 3. Instantiate Tomcat and set its base directory to a temporary created path
     Tomcat tomcat = new Tomcat();
     Path tempPath = getTempPath(System.getenv("temp-path"));
     tomcat.setBaseDir(tempPath.toString());
@@ -40,10 +40,11 @@ public class Main {
 
     // 5. Get the location of our Web Application Content Folder from our root folder
     File webContentFolder = getWebContentFolder(mainRootFolder);
-    System.out.println("configuring app with basedir: " + webContentFolder.getAbsolutePath());
+    System.out.println("Configuring web app with basedir: " + webContentFolder.getAbsolutePath());
 
-    // 6. Set the Standard Context for our embedded and running instance of Tomcat
+    // 6. Set the Standard Context for our instance of Tomcat
     StandardContext standardContext = getStandardContext(tomcat, webContentFolder);
+    System.out.println("Standard Context Path: " + standardContext.getPath());
 
     // 7. Get the Web Resource Root for our Tomcat Application and add it to the Standard Context
     WebResourceRoot webResourceRoot = updateWebResourceRoot(mainRootFolder, standardContext);
