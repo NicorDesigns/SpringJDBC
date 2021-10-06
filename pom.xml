@@ -20,6 +20,7 @@
     <module>JDBC3TomcatJndiDataSource</module>
     <module>JDBC4EmbeddedTomcatJndiDataSource</module>
     <module>JDBC5EmbeddedTomcatSpringDataSource</module>
+    <module>JDBC6EmbeddedTomcatSpringConfigClass</module>
   </modules>
 
   <packaging>pom</packaging>

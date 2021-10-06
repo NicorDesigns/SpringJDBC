@@ -1,10 +1,10 @@
-## Embedded Tomcat JDBC Spring DataSource Connection bean defined in Spring ApplicationContext.xml.
+## Embedded Tomcat JDBC Spring DataSource Connection bean defined in Spring Config Class using Annotations.
 
-### 1 Using IntelliJ we create a new Java Maven Module (JDBC5EmbeddedTomcatSpringJndiDataSource)
+### 1 Using IntelliJ we create a new Java Maven Module (JDBC6EmbeddedTomcatSpringConfigClass)
 
 #### File -> New Module -> Maven (No Archetype Selected)
 
-#### ArtifactId : JDBC5EmbeddedTomcatJndiDataSource
+#### ArtifactId : JDBC6EmbeddedTomcatSpringConfigClass
 
     Create package com.nicordesigns
 
@@ -21,12 +21,6 @@
     Update the Parent POM and global dependency version numbers
 
 ### 4  Create the Application with a Main Method that does all the setup and configuration
-
-    Create new webapp/web-inf directory underneath main
-    We define the DataSource bean in the Spring ApplicationContext.xml and in the web.xml
-    We define the ContextLoaderListener and the ApplicationContext.xml.
-    We launch our embedded Tomact from the Main method of our app like in the JDBC4 tutorial
-    but now we read in the DataSource using Spring.
 
 ### 5 Modify the generated HelloServlet.java to get the CharityDB CatalogName from the main method JNDI
 
