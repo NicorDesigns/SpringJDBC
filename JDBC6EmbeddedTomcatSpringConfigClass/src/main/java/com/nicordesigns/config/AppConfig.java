@@ -1,4 +1,4 @@
-package com.nicordesigns;
+package com.nicordesigns.config;
 
 import org.mariadb.jdbc.MariaDbDataSource;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +9,8 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
-@ComponentScan
-public class SpringJDBCConfig {
+@ComponentScan(basePackages = {"com.nicordesigns.service"})
+public class AppConfig {
 
   @Bean
   public DataSource dataSource() throws SQLException {
