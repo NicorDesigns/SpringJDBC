@@ -15,6 +15,8 @@
     Add all the required Tomcat dependencies that will enable running it from the command line
     
     Add all the required Spring Framework dependencies for the Spring Context and DataSource bean
+
+    Add log4j and jstl dependencies
     
     Also add the Maven build plugin that allows us to package and run a Tomcat Web Application from the command line
     
@@ -22,17 +24,23 @@
 
 ### 4  Create the Application with a Main Method that does all the setup and configuration
 
-### 5 Modify the generated HelloServlet.java to get the CharityDB CatalogName from the main method JNDI
+    The template for this module is a basic Spring MVC Application.
+    We will use Spring Annotations and Spring config classes
+    This module will use Spring App Config Java Classe to define the datasource bean
+    It will use a Spring Web Config class to define the MVC ViewResolver Bean
+    We will run Embedded Tomcat from a Spring Component
+    We will use a DBHelloService Spring Component to present the Hello World Screen and
+    the MariaDB Catalog Name
+    The WelcomeController is where all the logic is tied together
 
-    Re-use DatabaseUtil class from previous tutorial 
-    Add modified HelloServlet 
+### 5 Run the App main method
 
-### 6 Run the App main method
+    First in IntelliJ -> Select Main -> Right Click -> Run Main:main -> show the JSP Page with the Model that 
+    uses the Dispacher Servlet
 
-    This time we will use the Maven Execute plugin since we already know how to launc the App from within
-    IntelliJ 
+http://localhost:8080/hello
 
-    Then using the Maven Execute plugin: 
+    Using the Maven Execute plugin: 
 
     
     First add the plugin to the modules Maven pom.xml
