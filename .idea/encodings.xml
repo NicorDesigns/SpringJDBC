@@ -10,8 +10,8 @@
     <file url="file://$PROJECT_DIR$/JDBC5EmbeddedTomcatSpringDataSource/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JDBC6EmbeddedTomcatSpringConfigClass/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/JDBC6EmbeddedTomcatSpringConfigClass/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/JDBC7DAOwithJDBC/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/JDBC7DAOwithJDBC/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JDBC7RegularDao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/JDBC7RegularDao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/MariaDBConnect/src/main/resources" charset="UTF-8" />
   </component>
 </project>

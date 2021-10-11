@@ -21,7 +21,7 @@
     <module>JDBC4EmbeddedTomcatJndiDataSource</module>
     <module>JDBC5EmbeddedTomcatSpringDataSource</module>
     <module>JDBC6EmbeddedTomcatSpringConfigClass</module>
-    <module>JDBC7DAOwithJDBC</module>
+    <module>JDBC7RegularDao</module>
   </modules>
 
   <packaging>pom</packaging>
