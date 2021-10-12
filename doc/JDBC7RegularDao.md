@@ -16,20 +16,19 @@
 
     Add all the required Spring Framework dependencies for the Spring Context and DataSource bean
 
-    Also add the Maven build plugin that allows us to package and run a Tomcat Web Application from the command line
-    
     Update the Parent POM and global dependency version numbers
 
 ### 4  Create the Charity DAO Interface and Charity DAO Implementation class
 
     First we create the Charity Model Object and its related Model Objects Category and Program
+    For this run we won't be implementing the FK and relationships between the Models and in our Charity DB Table
     
     Then we create the Charity DAO Interface and the Charity DAO Implementation
 
-    For the Implementation of the DAO we will use regular JAVA JDBC and not the SpringJDBC Template
+    For the Implementation of the DAO we will use JAVA JDBC directly and not the SpringJDBC Template
 
     We will create a working insert Charity method and a working find Charity by TaxId method, which means we have
-    to manage all the database connections open and closing
+    to manage all the database connections open and closing in our DAO Implementation
 
     Our methods will only work on the Charity Model Object for now and we won't be implementing the full object graph
     of the Charity
@@ -44,7 +43,7 @@
 
     Then we first create a new Charity Object and insert it using the DAO and then we find the inserted Charity
     using the DAO
-    
+
 ### 6 Run the App main method
 
     First in IntelliJ -> Select Main -> Right Click -> Run Main:main -> Look at the Charity Table Entry
