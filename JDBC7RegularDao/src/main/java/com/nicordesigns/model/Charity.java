@@ -1,26 +1,22 @@
 package com.nicordesigns.model;
 
-import java.net.URL;
-
 public class Charity {
 
   private int charityId;
   private String charityTaxId;
   private String charityName;
   private String charityMission;
-  private URL charityWebAddress;
-  private URL charityFacebookAddress;
-  private URL charityTwitterAddress;
+  private String charityWebAddress;
+  private String charityFacebookAddress;
+  private String charityTwitterAddress;
 
   public Charity(
-      int charityId,
       String charityTaxId,
       String charityName,
       String charityMission,
-      URL charityWebAddress,
-      URL charityFacebookAddress,
-      URL charityTwitterAddress) {
-    this.charityId = charityId;
+      String charityWebAddress,
+      String charityFacebookAddress,
+      String charityTwitterAddress) {
     this.charityTaxId = charityTaxId;
     this.charityName = charityName;
     this.charityMission = charityMission;
@@ -61,27 +57,53 @@ public class Charity {
     this.charityMission = charityMission;
   }
 
-  public URL getCharityWebAddress() {
+  public String getCharityWebAddress() {
     return charityWebAddress;
   }
 
-  public void setCharityWebAddress(URL charityWebAddress) {
+  public void setCharityWebAddress(String charityWebAddress) {
     this.charityWebAddress = charityWebAddress;
   }
 
-  public URL getCharityFacebookAddress() {
+  public String getCharityFacebookAddress() {
     return charityFacebookAddress;
   }
 
-  public void setCharityFacebookAddress(URL charityFacebookAddress) {
+  public void setCharityFacebookAddress(String charityFacebookAddress) {
     this.charityFacebookAddress = charityFacebookAddress;
   }
 
-  public URL getCharityTwitterAddress() {
+  public String getCharityTwitterAddress() {
     return charityTwitterAddress;
   }
 
-  public void setCharityTwitterAddress(URL charityTwitterAddress) {
+  public void setCharityTwitterAddress(String charityTwitterAddress) {
     this.charityTwitterAddress = charityTwitterAddress;
+  }
+
+  @Override
+  public String toString() {
+    return "Charity{"
+        + "charityId="
+        + charityId
+        + ", charityTaxId='"
+        + charityTaxId
+        + '\''
+        + ", charityName='"
+        + charityName
+        + '\''
+        + ", charityMission='"
+        + charityMission
+        + '\''
+        + ", charityWebAddress='"
+        + charityWebAddress
+        + '\''
+        + ", charityFacebookAddress='"
+        + charityFacebookAddress
+        + '\''
+        + ", charityTwitterAddress='"
+        + charityTwitterAddress
+        + '\''
+        + '}';
   }
 }
