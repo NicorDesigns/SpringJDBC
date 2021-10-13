@@ -46,5 +46,8 @@
 
 ### 6 Run the App main method
 
-    First in IntelliJ -> Select Main -> Right Click -> Run Main:main -> Look at the Charity Table Entry
+    First clear out the DB Charity Table in such a way that we do not have any FK relations and tables set up.
+    Run the Main method.
+    In IntelliJ -> Select Main -> Right Click -> Run Main:main -> Look at the Charity Table Entry
     --> Look at the Charity Object that was retrieved from the database
+    Look at the Console Output and at the DB Charity Table
