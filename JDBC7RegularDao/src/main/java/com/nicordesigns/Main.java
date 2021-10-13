@@ -28,8 +28,8 @@ public class Main {
             "https://www.facebook.com/ZISIZE/?ref=page_internal",
             "N/A");
 
-    // int charityId = charityDao.insert(charity);
-    // System.out.println(charityId);
+    int charityId = charityDao.insert(charity);
+    System.out.println(charity + " inserted : DB Generated charityId: " + charityId);
 
     Charity charity1 = charityDao.findByCharityTaxId("4760176232");
     System.out.println(charity1);

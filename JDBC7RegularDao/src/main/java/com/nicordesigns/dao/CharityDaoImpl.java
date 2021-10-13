@@ -34,9 +34,17 @@ public class CharityDaoImpl implements CharityDao {
 
     int charityIDInt = 0;
 
-    try (Connection connection = dataSource.getConnection();
-        PreparedStatement stmtInsertCharity =
-            connection.prepareStatement(sqlInsertCharity, Statement.RETURN_GENERATED_KEYS)) {
+    Connection connection = null;
+    try
+    // (Connection connection = dataSource.getConnection();
+    // PreparedStatement stmtInsertCharity =
+    // connection.prepareStatement(sqlInsertCharity, Statement.RETURN_GENERATED_KEYS))
+    {
+
+      connection = dataSource.getConnection();
+
+      PreparedStatement stmtInsertCharity =
+          connection.prepareStatement(sqlInsertCharity, Statement.RETURN_GENERATED_KEYS);
 
       stmtInsertCharity.setString(1, charity.getCharityTaxId());
       stmtInsertCharity.setString(2, charity.getCharityName());
@@ -46,6 +54,7 @@ public class CharityDaoImpl implements CharityDao {
       stmtInsertCharity.setString(6, charity.getCharityTwitterAddress());
 
       int rowsAffected = stmtInsertCharity.executeUpdate();
+      stmtInsertCharity.close();
 
       if (rowsAffected == 1) {
         System.out.println("Successful Insert");
@@ -54,11 +63,20 @@ public class CharityDaoImpl implements CharityDao {
           charityIDInt = charitySet.getInt(1);
         }
         System.out.println("Returning DB Generated Charity Id : " + charityIDInt);
+
         return charityIDInt;
       }
 
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+      }
     }
     System.out.println("Failed to insert Charity - returning Charity Id : " + charityIDInt);
     return charityIDInt;
@@ -74,8 +92,14 @@ public class CharityDaoImpl implements CharityDao {
   public Charity findByCharityTaxId(String taxId) {
     String sqlQuery = "SELECT * FROM charity WHERE CHARITY_TAX_ID = ?";
     Charity charity = null;
-    try (Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+    Connection connection = null;
+    try
+    // (Connection connection = dataSource.getConnection();
+    // PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery))
+
+    {
+      connection = dataSource.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
       preparedStatement.setString(1, taxId);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
@@ -88,11 +112,22 @@ public class CharityDaoImpl implements CharityDao {
                 rs.getString("CHARITY_FACEBOOK_ADDRESS"),
                 rs.getString("CHARITY_TWITTER_ADDRESS"));
       }
+
       rs.close();
+      preparedStatement.close();
+
       return charity;
 
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
+    } finally {
+      if (connection != null) {
+        try {
+          connection.close();
+        } catch (SQLException sqlException) {
+          sqlException.printStackTrace();
+        }
+      }
     }
 
     return charity;
