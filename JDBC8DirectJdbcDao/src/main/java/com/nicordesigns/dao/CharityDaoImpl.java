@@ -34,9 +34,9 @@ public class CharityDaoImpl implements CharityDao {
             + "CHARITY_TWITTER_ADDRESS) "
             + "VALUES(?,?,?,?,?,?)";
 
-    ResultSet charitySet;
+    ResultSet charityGeneratedKeySet;
 
-    int charityIDInt = 0;
+    int insertedCharityId = 0;
 
     try (Connection connection = dataSource.getConnection()) {
       connection.setAutoCommit(false); // Use Transactional Commit capability of MariaDB
@@ -55,9 +55,9 @@ public class CharityDaoImpl implements CharityDao {
 
         if (rowsAffected == 1) {
           System.out.println("Successful Charity Insert");
-          charitySet = preparedStatementInsertCharity.getGeneratedKeys();
-          if (charitySet.next()) {
-            charityIDInt = charitySet.getInt(1);
+          charityGeneratedKeySet = preparedStatementInsertCharity.getGeneratedKeys();
+          if (charityGeneratedKeySet.next()) {
+            insertedCharityId = charityGeneratedKeySet.getInt(1);
           }
 
           Category category = getCharityCategory(charity, connection);
@@ -65,7 +65,7 @@ public class CharityDaoImpl implements CharityDao {
           int charityCategoryRowsInserted = 0;
 
           if (category == null) {
-            int categoryId = getCategoryId(charity, connection);
+            int categoryId = insertCategoryForNewCharity(charity, connection);
             if (categoryId != 0) {
               charityCategoryRowsInserted =
                   getCharityCategoryRowsInserted(connection, charity.getCharityId(), categoryId);
@@ -86,19 +86,22 @@ public class CharityDaoImpl implements CharityDao {
         }
       }
 
+      connection.commit();
+      connection.setAutoCommit(true);
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
     }
-    System.out.println("On success > 0 - Returning DB Generated Charity Id : " + charityIDInt);
-    return charityIDInt;
+    System.out.println("On success > 0 - Returning DB Generated Charity Id : " + insertedCharityId);
+    return insertedCharityId;
   }
 
-  private int getCharityCategoryRowsInserted(Connection connection, int charityId, int categoryId) {
+  private int getCharityCategoryRowsInserted(Connection connection, int charityId, int categoryId)
+      throws SQLException {
     int charityCategoryRowsInserted;
     String sqlInsertCharityCategory =
         "INSERT INTO CHARITY_CATEGORY(CHARITY_ID, CATEGORY_ID) VALUES(?,?)";
 
-    int rowsInserted = 0;
+    int rowsInserted;
     try (PreparedStatement stmtInsertCharityCategoryRelationship =
         connection.prepareStatement(sqlInsertCharityCategory)) {
 
@@ -113,13 +116,16 @@ public class CharityDaoImpl implements CharityDao {
       }
 
     } catch (SQLException sqlException) {
-      sqlException.printStackTrace();
+      connection.rollback();
+      connection.setAutoCommit(true);
+      throw sqlException;
     }
     charityCategoryRowsInserted = rowsInserted;
     return charityCategoryRowsInserted;
   }
 
-  private int getCategoryId(Charity charity, Connection connection) throws SQLException {
+  private int insertCategoryForNewCharity(Charity charity, Connection connection)
+      throws SQLException {
     String sqlInsertCategory = "INSERT INTO category (CATEGORY_NAME) VALUES (?)";
 
     int insertedDBGeneratedCategoryId = 0;
@@ -139,6 +145,10 @@ public class CharityDaoImpl implements CharityDao {
           insertedDBGeneratedCategoryId = categorySet.getInt(1);
         }
       }
+    } catch (SQLException sqlException) {
+      connection.rollback();
+      connection.setAutoCommit(true);
+      throw sqlException;
     }
     return insertedDBGeneratedCategoryId;
   }
@@ -155,6 +165,10 @@ public class CharityDaoImpl implements CharityDao {
       if (rs.next()) {
         findCategory = new Category(rs.getString("CATEGORY_NAME"));
       }
+    } catch (SQLException sqlException) {
+      connection.rollback();
+      connection.setAutoCommit(true);
+      throw sqlException;
     }
 
     return findCategory;
