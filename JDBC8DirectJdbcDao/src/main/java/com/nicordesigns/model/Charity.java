@@ -9,20 +9,42 @@ public class Charity {
   private String charityWebAddress;
   private String charityFacebookAddress;
   private String charityTwitterAddress;
+  private Category charityCategory;
 
   public Charity(
-      String charityTaxId,
-      String charityName,
-      String charityMission,
-      String charityWebAddress,
-      String charityFacebookAddress,
-      String charityTwitterAddress) {
-    this.charityTaxId = charityTaxId;
-    this.charityName = charityName;
-    this.charityMission = charityMission;
-    this.charityWebAddress = charityWebAddress;
-    this.charityFacebookAddress = charityFacebookAddress;
-    this.charityTwitterAddress = charityTwitterAddress;
+      int charityId,
+      String charity_tax_id,
+      String charity_name,
+      String charity_mission,
+      String charity_web_address,
+      String charity_facebook_address,
+      String charity_twitter_address) {
+
+    this.charityId = charityId;
+    this.charityTaxId = charity_tax_id;
+    this.charityName = charity_name;
+    this.charityMission = charity_mission;
+    this.charityWebAddress = charity_web_address;
+    this.charityFacebookAddress = charity_facebook_address;
+    this.charityTwitterAddress = charity_twitter_address;
+  }
+
+  public Charity(
+      String charity_tax_id,
+      String charity_name,
+      String charity_mission,
+      String charity_web_address,
+      String charity_facebook_address,
+      String charity_twitter_address,
+      Category category) {
+
+    this.charityTaxId = charity_tax_id;
+    this.charityName = charity_name;
+    this.charityMission = charity_mission;
+    this.charityWebAddress = charity_web_address;
+    this.charityFacebookAddress = charity_facebook_address;
+    this.charityTwitterAddress = charity_twitter_address;
+    this.charityCategory = category;
   }
 
   public int getCharityId() {
@@ -81,9 +103,19 @@ public class Charity {
     this.charityTwitterAddress = charityTwitterAddress;
   }
 
+  public Category getCharityCategory() {
+    return charityCategory;
+  }
+
+  public void setCharityCategory(Category charityCategory) {
+    this.charityCategory = charityCategory;
+  }
+
   @Override
   public String toString() {
     return "Charity{"
+        + "charityId="
+        + charityId
         + ", charityTaxId='"
         + charityTaxId
         + '\''
@@ -102,6 +134,8 @@ public class Charity {
         + ", charityTwitterAddress='"
         + charityTwitterAddress
         + '\''
+        + ", charityCategory="
+        + charityCategory
         + '}';
   }
 }

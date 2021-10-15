@@ -6,7 +6,7 @@
 
 #### ArtifactId : JDBC7RegularDao
 
-    Create package com.nicordesigns
+### 2 Create package com.nicordesigns
 
 ### 3 Update the generated Maven POM.XML files where required
 
@@ -48,6 +48,7 @@
 
     First clear out the DB Charity Table in such a way that we do not have any FK relations and tables set up.
     Run the Main method.
+
     In IntelliJ -> Select Main -> Right Click -> Run Main:main -> Look at the Charity Table Entry
     --> Look at the Charity Object that was retrieved from the database
     Look at the Console Output and at the DB Charity Table
