@@ -82,8 +82,10 @@ public class CharityDaoImpl implements CharityDao {
             int charityId = charity.getCharityId();
             int categoryId = category.getCategoryId();
 
+            // Update Charity Category Relationship
             charityCategoryRowsInserted =
-                insertCharityCategoryRelationship(connection, charityId, categoryId);
+                updateCharityCategoryRelationship(connection, charityId, categoryId);
+
             System.out.println(
                 "Charity Category relationship table rows inserted in DB: "
                     + charityCategoryRowsInserted);
@@ -143,6 +145,39 @@ public class CharityDaoImpl implements CharityDao {
       throw sqlException;
     }
     return charityCategoryRelationshipRowsInserted;
+  }
+
+  private int updateCharityCategoryRelationship(
+      Connection connection, int charityId, int categoryId) throws SQLException {
+
+    if (charityId != 0 | categoryId != 0) {
+      throw new SQLException("charityId or categoryId can not be 0");
+    }
+
+    String sqlUpdateCharityCategory =
+        "UPDATE CHARITY_CATEGORY SET CATEGORY_ID = ? " + "WHERE CHARITY_ID = ?";
+
+    int charityCategoryRelationshipRowsUpdated;
+    try (PreparedStatement preparedStatementUpdateCharityCategoryRelationship =
+        connection.prepareStatement(sqlUpdateCharityCategory)) {
+
+      preparedStatementUpdateCharityCategoryRelationship.setInt(1, categoryId);
+      preparedStatementUpdateCharityCategoryRelationship.setInt(2, charityId);
+
+      charityCategoryRelationshipRowsUpdated =
+          preparedStatementUpdateCharityCategoryRelationship.executeUpdate();
+
+      if (charityCategoryRelationshipRowsUpdated == 1) {
+        System.out.println(
+            "Successful Update of CHARITY_CATEGORY ID" + charityId + " " + categoryId);
+      }
+
+    } catch (SQLException sqlException) {
+      connection.rollback();
+      connection.setAutoCommit(true);
+      throw sqlException;
+    }
+    return charityCategoryRelationshipRowsUpdated;
   }
 
   private int insertCategoryForCharity(Charity charity, Connection connection) throws SQLException {
@@ -205,6 +240,7 @@ public class CharityDaoImpl implements CharityDao {
             + " CHARITY_TWITTER_ADDRESS = ?"
             + " WHERE CHARITY_TAX_ID = ?";
     int rowUpdateCount = 0;
+
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate)) {
 
@@ -216,24 +252,26 @@ public class CharityDaoImpl implements CharityDao {
       preparedStatement.setString(6, charity.getCharityTaxId());
 
       rowUpdateCount = preparedStatement.executeUpdate();
-
+      int charityCategoryRelationshipRowsInserted = 0;
       if (rowUpdateCount > 0) {
         // Update the Charity Category
         var updateCategory = charity.getCharityCategory();
         var charityCategory = findCategoryForCharity(charity, connection);
         if (charityCategory != null) {
-          if (updateCategory.equals(charityCategory)) { // TODO Update equals & hashtag
-            // Update Charity Category
-            var charityCategoryRelationshipRows =
-                insertCharityCategoryRelationship(
+          if (!updateCategory.equals(charityCategory)) {
+            charityCategoryRelationshipRowsInserted =
+                updateCharityCategoryRelationship(
                     connection, updateCategory.getCategoryId(), charity.getCharityId());
-          } else {
-            // Insert Charity Category into Category table
-            var categoryId = insertCategoryForCharity(charity, connection);
-            // Insert Charity Category Relationship
-            insertCharityCategoryRelationship(connection, charity.getCharityId(), categoryId);
           }
+        } else {
+          // Insert Charity Category into Category table
+          var categoryId = insertCategoryForCharity(charity, connection);
+          // Insert Charity Category Relationship
+          charityCategoryRelationshipRowsInserted =
+              insertCharityCategoryRelationship(connection, charity.getCharityId(), categoryId);
         }
+        System.out.println(
+            "charityCategoryRelationshipRowsInserted = " + charityCategoryRelationshipRowsInserted);
       }
 
     } catch (SQLException sqlException) {
