@@ -1,5 +1,7 @@
 package com.nicordesigns.model;
 
+import java.util.Objects;
+
 public class Charity {
 
   private int charityId;
@@ -137,5 +139,31 @@ public class Charity {
         + ", charityCategory="
         + charityCategory
         + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Charity)) return false;
+    Charity charity = (Charity) o;
+    return getCharityTaxId().equals(charity.getCharityTaxId())
+        && getCharityName().equals(charity.getCharityName())
+        && getCharityMission().equals(charity.getCharityMission())
+        && getCharityWebAddress().equals(charity.getCharityWebAddress())
+        && getCharityFacebookAddress().equals(charity.getCharityFacebookAddress())
+        && getCharityTwitterAddress().equals(charity.getCharityTwitterAddress())
+        && getCharityCategory().equals(charity.getCharityCategory());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        getCharityTaxId(),
+        getCharityName(),
+        getCharityMission(),
+        getCharityWebAddress(),
+        getCharityFacebookAddress(),
+        getCharityTwitterAddress(),
+        getCharityCategory());
   }
 }
