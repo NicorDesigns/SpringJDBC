@@ -120,22 +120,22 @@ public class Charity {
         + charityId
         + ", charityTaxId='"
         + charityTaxId
-        + '\''
+        + '\n'
         + ", charityName='"
         + charityName
-        + '\''
+        + '\n'
         + ", charityMission='"
         + charityMission
-        + '\''
+        + '\n'
         + ", charityWebAddress='"
         + charityWebAddress
-        + '\''
+        + '\n'
         + ", charityFacebookAddress='"
         + charityFacebookAddress
-        + '\''
+        + '\n'
         + ", charityTwitterAddress='"
         + charityTwitterAddress
-        + '\''
+        + '\n'
         + ", charityCategory="
         + charityCategory
         + '}';

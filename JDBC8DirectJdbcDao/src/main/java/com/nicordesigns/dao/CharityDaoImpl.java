@@ -22,17 +22,7 @@ public class CharityDaoImpl implements CharityDao {
   }
 
   @Override
-  public int insert(Charity charity) throws SQLException {
-
-    String sqlInsertCharity =
-        "INSERT INTO charity"
-            + "(CHARITY_TAX_ID, "
-            + "CHARITY_NAME, "
-            + "CHARITY_MISSION, "
-            + "CHARITY_WEB_ADDRESS, "
-            + "CHARITY_FACEBOOK_ADDRESS, "
-            + "CHARITY_TWITTER_ADDRESS) "
-            + "VALUES(?,?,?,?,?,?)";
+  public Charity insert(Charity charity) throws SQLException {
 
     ResultSet charityGeneratedKeySet;
 
@@ -40,6 +30,16 @@ public class CharityDaoImpl implements CharityDao {
 
     try (Connection connection = dataSource.getConnection()) {
       connection.setAutoCommit(false); // Use Transactional Commit capability of MariaDB
+
+      String sqlInsertCharity =
+          "INSERT INTO charity"
+              + "(CHARITY_TAX_ID, "
+              + "CHARITY_NAME, "
+              + "CHARITY_MISSION, "
+              + "CHARITY_WEB_ADDRESS, "
+              + "CHARITY_FACEBOOK_ADDRESS, "
+              + "CHARITY_TWITTER_ADDRESS) "
+              + "VALUES(?,?,?,?,?,?)";
 
       try (PreparedStatement preparedStatementInsertCharity =
           connection.prepareStatement(sqlInsertCharity, Statement.RETURN_GENERATED_KEYS)) {
@@ -51,74 +51,85 @@ public class CharityDaoImpl implements CharityDao {
         preparedStatementInsertCharity.setString(5, charity.getCharityFacebookAddress());
         preparedStatementInsertCharity.setString(6, charity.getCharityTwitterAddress());
 
-        int rowsAffected = preparedStatementInsertCharity.executeUpdate();
+        int charityRowsInserted = preparedStatementInsertCharity.executeUpdate();
 
-        if (rowsAffected == 1) {
-          System.out.println("Successful Charity Insert");
+        if (charityRowsInserted == 1) {
+          System.out.println("Charity Row Inserted");
           charityGeneratedKeySet = preparedStatementInsertCharity.getGeneratedKeys();
 
           if (charityGeneratedKeySet.next()) {
             insertedCharityId = charityGeneratedKeySet.getInt(1);
             System.out.println("DB Generated Charity Id: " + insertedCharityId);
+            charity.setCharityId(insertedCharityId);
           }
 
           Category category = findCategoryForCharity(charity, connection);
 
-          int charityCategoryRowsInserted = 0;
+          Category charityCategory = updateCharityCategoryRow(charity, connection, category);
 
-          if (category == null) {
-            System.out.println("Charity Category not found in DB " + charity.getCharityCategory());
-            int categoryId = insertCategoryForCharity(charity, connection);
-            if (categoryId != 0) {
-              charityCategoryRowsInserted =
-                  insertCharityCategoryRelationship(connection, charity.getCharityId(), categoryId);
-              System.out.println(
-                  "Charity Category relationship table rows inserted in DB: "
-                      + charityCategoryRowsInserted);
-            }
-          } else {
-            System.out.println("Charity Category found in DB: " + category);
-            // The Category already exists - find it and update the relationship table
-            int charityId = charity.getCharityId();
-            int categoryId = category.getCategoryId();
-
-            // Update Charity Category Relationship
-            charityCategoryRowsInserted =
-                updateCharityCategoryRelationship(connection, charityId, categoryId);
-
+          if (charityCategory != null) {
             System.out.println(
-                "Charity Category relationship table rows inserted in DB: "
-                    + charityCategoryRowsInserted);
+                "Successful Insert or Update of Charity, Category and CharityCategory Relationship table");
+            charity.setCharityCategory(charityCategory);
           }
 
-          if (charityCategoryRowsInserted > 0) {
-            System.out.println(
-                "Successful Insert of Charity, Category and CharityCategory Relationship table");
-          }
+          connection.commit();
+          connection.setAutoCommit(true);
+          return charity;
         }
-        connection.commit();
-        connection.setAutoCommit(true);
 
       } catch (SQLException sqlException) {
         connection.rollback();
         connection.setAutoCommit(true);
         throw sqlException;
       }
-
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
       throw sqlException;
     }
 
     System.out.println("On success > 0 - Returning DB Generated Charity Id : " + insertedCharityId);
-    return insertedCharityId;
+    return charity;
+  }
+
+  private Category updateCharityCategoryRow(
+      Charity charity, Connection connection, Category category) throws SQLException {
+
+    int charityCategoryRows;
+
+    if (category == null) {
+      System.out.println("Charity Category not found in DB " + charity.getCharityCategory());
+      int categoryId = insertCategoryForCharity(charity, connection);
+      if (categoryId != 0) {
+        category = new Category(categoryId, charity.getCharityCategory().getCategoryName());
+        category.setCategoryId(categoryId);
+        charityCategoryRows =
+            insertCharityCategoryRelationship(connection, charity.getCharityId(), categoryId);
+        System.out.println(
+            "Charity Category relationship table rows inserted in DB: " + charityCategoryRows);
+      }
+    } else {
+      System.out.println("Charity Category found in DB: " + category);
+      // The Category already exists - find it and update the relationship table
+      int charityId = charity.getCharityId();
+      int categoryId = category.getCategoryId();
+
+      // Update Charity Category Relationship
+      charityCategoryRows = updateCharityCategoryRelationship(connection, charityId, categoryId);
+
+      System.out.println(
+          "Charity Category relationship table rows inserted in DB: " + charityCategoryRows);
+    }
+    return category;
   }
 
   private int insertCharityCategoryRelationship(
       Connection connection, int charityId, int categoryId) throws SQLException {
 
-    if (charityId != 0 | categoryId != 0) {
-      throw new SQLException("charityId or categoryId can not be 0");
+    if (categoryId == 0) {
+      throw new SQLException("categoryId can not be 0");
+    } else if (charityId == 0) {
+      throw new SQLException("categoryId can not be 0");
     }
 
     String sqlInsertCharityCategory =
@@ -150,7 +161,7 @@ public class CharityDaoImpl implements CharityDao {
   private int updateCharityCategoryRelationship(
       Connection connection, int charityId, int categoryId) throws SQLException {
 
-    if (charityId != 0 | categoryId != 0) {
+    if (charityId == 0 | categoryId == 0) {
       throw new SQLException("charityId or categoryId can not be 0");
     }
 
@@ -158,6 +169,7 @@ public class CharityDaoImpl implements CharityDao {
         "UPDATE CHARITY_CATEGORY SET CATEGORY_ID = ? " + "WHERE CHARITY_ID = ?";
 
     int charityCategoryRelationshipRowsUpdated;
+
     try (PreparedStatement preparedStatementUpdateCharityCategoryRelationship =
         connection.prepareStatement(sqlUpdateCharityCategory)) {
 
@@ -210,15 +222,17 @@ public class CharityDaoImpl implements CharityDao {
 
   private Category findCategoryForCharity(Charity charity, Connection connection)
       throws SQLException {
+
     String sqlQuery = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
     Category findCategory = null;
 
     try (PreparedStatement preparedStatementFindCategory = connection.prepareStatement(sqlQuery)) {
-
+      System.out.println("findCategoryForCharity :" + charity.getCharityCategory());
       preparedStatementFindCategory.setString(1, charity.getCharityCategory().getCategoryName());
       ResultSet rs = preparedStatementFindCategory.executeQuery();
 
       if (rs.next()) {
+        System.out.println(rs.getInt("CATEGORY_ID") + " , " + rs.getString("CATEGORY_NAME"));
         findCategory = new Category(rs.getInt("CATEGORY_ID"), rs.getString("CATEGORY_NAME"));
       }
     } catch (SQLException sqlException) {
@@ -282,18 +296,90 @@ public class CharityDaoImpl implements CharityDao {
   }
 
   @Override
-  public int delete(Charity charity) {
+  public int delete(Charity charity) throws SQLException {
+    // TODO Delete Charity Category relationship if it exists and the Category if there are now
+    // other Charities that relates to it
     String sqlQuery = "DELETE FROM charity where CHARITY_TAX_ID = ?";
-    int rowUpdateCount = 0;
-    try (Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-      preparedStatement.setString(1, charity.getCharityTaxId());
-      rowUpdateCount = preparedStatement.executeUpdate();
+    int rowDeleteCount;
+    try (Connection connection = dataSource.getConnection()) {
+
+      try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+        preparedStatement.setString(1, charity.getCharityTaxId());
+        rowDeleteCount = preparedStatement.executeUpdate();
+
+        if (rowDeleteCount == 1) {
+          // delete charity category relationship table row
+          int categoryCharityRelationshipRowsDeleted =
+              deleteCategoryCharityRelationship(
+                  charity.getCharityId(), charity.getCharityCategory().getCategoryId(), connection);
+          System.out.println(
+              "Charity Category Relationship Rows Deleted = "
+                  + categoryCharityRelationshipRowsDeleted);
+
+          // if there are no more relationships left for the Category then delete the Category from
+          // the Categories table
+          Category category = findCategoryForCharity(charity, connection);
+          if (category != null) {
+            int deletedCategoryRows = deleteCategory(charity.getCharityCategory(), connection);
+            System.out.println("deleted Category Rows" + deletedCategoryRows);
+          }
+        }
+      }
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
+      throw sqlException;
     }
 
-    return rowUpdateCount;
+    return rowDeleteCount;
+  }
+
+  private int deleteCategory(Category charityCategory, Connection connection) throws SQLException {
+    String sqlQuery = "DELETE FROM category where CATEGORY_ID = ?";
+    int rowDeleteCount;
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+      preparedStatement.setInt(1, charityCategory.getCategoryId());
+      rowDeleteCount = preparedStatement.executeUpdate();
+
+      if (rowDeleteCount == 1) {
+        System.out.println(
+            "Category Row deleted ["
+                + charityCategory.getCategoryId()
+                + ", "
+                + charityCategory.getCategoryName()
+                + " ]");
+      }
+
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+      throw sqlException;
+    }
+
+    return rowDeleteCount;
+  }
+
+  public int deleteCategoryCharityRelationship(int charityId, int categoryId, Connection connection)
+      throws SQLException {
+
+    String sqlQuery = "DELETE FROM charity_category where CHARITY_ID = ? AND CATEGORY_ID = ?";
+    int rowDeleteCount;
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+      preparedStatement.setInt(1, charityId);
+      preparedStatement.setInt(2, categoryId);
+      rowDeleteCount = preparedStatement.executeUpdate();
+
+      if (rowDeleteCount == 1) {
+        System.out.println(
+            "Charity Category Row deleted [" + charityId + " , " + categoryId + " ]");
+      }
+
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+      throw sqlException;
+    }
+
+    return rowDeleteCount;
   }
 
   @Override
@@ -317,10 +403,40 @@ public class CharityDaoImpl implements CharityDao {
                   rs.getString("CHARITY_TWITTER_ADDRESS"));
 
           Category charityCategory = findCategoryForCharity(charity, connection);
+
           charity.setCharityCategory(charityCategory);
         }
       }
 
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+    }
+
+    return charity;
+  }
+
+  public Charity findByCharityTaxId(String taxId, Connection connection) {
+    String sqlQuery = "SELECT * FROM charity WHERE CHARITY_TAX_ID = ?";
+    Charity charity = null;
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+      preparedStatement.setString(1, taxId);
+      ResultSet rs = preparedStatement.executeQuery();
+      if (rs.next()) {
+        charity =
+            new Charity(
+                rs.getInt("CHARITY_ID"),
+                rs.getString("CHARITY_TAX_ID"),
+                rs.getString("CHARITY_NAME"),
+                rs.getString("CHARITY_MISSION"),
+                rs.getString("CHARITY_WEB_ADDRESS"),
+                rs.getString("CHARITY_FACEBOOK_ADDRESS"),
+                rs.getString("CHARITY_TWITTER_ADDRESS"));
+
+        Category charityCategory = findCategoryForCharity(charity, connection);
+
+        charity.setCharityCategory(charityCategory);
+      }
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
     }

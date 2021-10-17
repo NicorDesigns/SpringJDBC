@@ -16,10 +16,8 @@ public class Main {
 
     CharityDao charityDao = context.getBean(CharityDaoImpl.class);
 
-    System.out.println(charityDao);
-
     Category category = new Category("DISABILITIES");
-
+    System.out.println("Created new Category: " + category);
     Charity charity =
         new Charity(
             "4760176232",
@@ -31,25 +29,31 @@ public class Main {
             "N/A",
             category);
 
-    System.out.println("Created: " + charity);
-    int insertedCharityId = charityDao.insert(charity);
-    System.out.println(charity + " inserted : DB Generated charityId: " + insertedCharityId);
+    System.out.println("Inserting new Created Charity: " + charity);
+    Charity insertedCharity = charityDao.insert(charity);
 
-    Charity foundCharity = charityDao.findByCharityTaxId(charity.getCharityTaxId());
-    System.out.println(foundCharity);
+    System.out.println(
+        "DB Generated charityId: " + insertedCharity.getCharityId() + " inserted :  " + charity);
+    System.out.println("Inserted Charity Category: " + insertedCharity.getCharityCategory());
+    System.out.println(
+        "Inserted Charity CategoryId: " + insertedCharity.getCharityCategory().getCategoryId());
 
-    foundCharity.setCharityName("Update_" + charity.getCharityName());
-    foundCharity.setCharityMission("Update_" + charity.getCharityMission());
-    int rowsAffected = charityDao.update(foundCharity);
-    System.out.println("Rows Affected : " + rowsAffected);
-
-    Charity updatedCharity = charityDao.findByCharityTaxId(foundCharity.getCharityTaxId());
-    System.out.println(updatedCharity);
-
-    Charity foundUpdatedCharity = charityDao.findByCharityTaxId(updatedCharity.getCharityTaxId());
-    System.out.println(foundUpdatedCharity);
-
-    // int rowsDeleted = charityDao.delete(foundCharity);
-    // System.out.println("Rows Affected : " + rowsDeleted);
+    //    Charity foundCharity = charityDao.findByCharityTaxId(charity.getCharityTaxId());
+    //    System.out.println(foundCharity);
+    //
+    //    foundCharity.setCharityName("Update_" + charity.getCharityName());
+    //    foundCharity.setCharityMission("Update_" + charity.getCharityMission());
+    //    int rowsAffected = charityDao.update(foundCharity);
+    //    System.out.println("Rows Affected : " + rowsAffected);
+    //
+    //    Charity updatedCharity = charityDao.findByCharityTaxId(foundCharity.getCharityTaxId());
+    //    System.out.println(updatedCharity);
+    //
+    //    Charity foundUpdatedCharity =
+    // charityDao.findByCharityTaxId(updatedCharity.getCharityTaxId());
+    //    System.out.println(foundUpdatedCharity);
+    //
+    //    int rowsDeleted = charityDao.delete(foundCharity);
+    //    System.out.println("Rows Affected : " + rowsDeleted);
   }
 }
