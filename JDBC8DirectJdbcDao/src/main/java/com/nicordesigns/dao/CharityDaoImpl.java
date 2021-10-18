@@ -223,17 +223,29 @@ public class CharityDaoImpl implements CharityDao {
   private Category findCategoryForCharity(Charity charity, Connection connection)
       throws SQLException {
 
-    String sqlQuery = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
+    String sqlQuery = "SELECT * FROM charity_category WHERE CHARITY_ID = ?";
+
     Category findCategory = null;
 
     try (PreparedStatement preparedStatementFindCategory = connection.prepareStatement(sqlQuery)) {
-      System.out.println("findCategoryForCharity :" + charity.getCharityCategory());
-      preparedStatementFindCategory.setString(1, charity.getCharityCategory().getCategoryName());
+
+      System.out.println("findCategoryForCharity :" + charity.getCharityTaxId());
+      preparedStatementFindCategory.setInt(1, charity.getCharityId());
       ResultSet rs = preparedStatementFindCategory.executeQuery();
 
       if (rs.next()) {
-        System.out.println(rs.getInt("CATEGORY_ID") + " , " + rs.getString("CATEGORY_NAME"));
-        findCategory = new Category(rs.getInt("CATEGORY_ID"), rs.getString("CATEGORY_NAME"));
+        System.out.println(rs.getInt("CHARITY_ID") + " , " + rs.getInt("CATEGORY_ID"));
+        String sqlQuery2 = "SELECT * FROM category WHERE CATEGORY_ID = ?";
+
+        try (PreparedStatement preparedStatementFindCategoryById =
+            connection.prepareStatement(sqlQuery2)) {
+          preparedStatementFindCategoryById.setInt(1, rs.getInt("CATEGORY_ID"));
+          ResultSet rs2 = preparedStatementFindCategoryById.executeQuery();
+          if (rs2.next()) {
+            System.out.println(rs.getInt("CHARITY_ID") + " , " + rs2.getString("CATEGORY_NAME"));
+            findCategory = new Category(rs.getInt("CATEGORY_ID"), rs2.getString("CATEGORY_NAME"));
+          }
+        }
       }
     } catch (SQLException sqlException) {
       connection.rollback();
@@ -386,6 +398,7 @@ public class CharityDaoImpl implements CharityDao {
   public Charity findByCharityTaxId(String taxId) {
     String sqlQuery = "SELECT * FROM charity WHERE CHARITY_TAX_ID = ?";
     Charity charity = null;
+
     try (Connection connection = dataSource.getConnection()) {
 
       try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
@@ -402,8 +415,8 @@ public class CharityDaoImpl implements CharityDao {
                   rs.getString("CHARITY_FACEBOOK_ADDRESS"),
                   rs.getString("CHARITY_TWITTER_ADDRESS"));
 
-          Category charityCategory = findCategoryForCharity(charity, connection);
-
+          Category charityCategory;
+          charityCategory = findCategoryForCharity(charity, connection);
           charity.setCharityCategory(charityCategory);
         }
       }

@@ -29,31 +29,36 @@ public class Main {
             "N/A",
             category);
 
-    System.out.println("Inserting new Created Charity: " + charity);
-    Charity insertedCharity = charityDao.insert(charity);
+    System.out.println("Created new Charity: " + charity);
 
-    System.out.println(
-        "DB Generated charityId: " + insertedCharity.getCharityId() + " inserted :  " + charity);
-    System.out.println("Inserted Charity Category: " + insertedCharity.getCharityCategory());
-    System.out.println(
-        "Inserted Charity CategoryId: " + insertedCharity.getCharityCategory().getCategoryId());
-
-    //    Charity foundCharity = charityDao.findByCharityTaxId(charity.getCharityTaxId());
-    //    System.out.println(foundCharity);
+    //        Charity insertedCharity = charityDao.insert(charity);
     //
-    //    foundCharity.setCharityName("Update_" + charity.getCharityName());
-    //    foundCharity.setCharityMission("Update_" + charity.getCharityMission());
-    //    int rowsAffected = charityDao.update(foundCharity);
+    //        System.out.println(
+    //            "DB Generated charityId: " + insertedCharity.getCharityId() + " inserted :  " +
+    //     charity);
+    //        System.out.println("Inserted Charity Category: " +
+    // insertedCharity.getCharityCategory());
+    //        System.out.println(
+    //            "Inserted Charity CategoryId: " +
+    //     insertedCharity.getCharityCategory().getCategoryId());
+
+    System.out.println("Finding Charity in MariaDB: " + charity);
+    Charity findCharityInDB = charityDao.findByCharityTaxId(charity.getCharityTaxId());
+    System.out.println("Charity retrieved from MariaDB: " + findCharityInDB);
+
+    //    findCharityInDB.setCharityName("Update_" + charity.getCharityName());
+    //    findCharityInDB.setCharityMission("Update_" + charity.getCharityMission());
+    //    int rowsAffected = charityDao.update(findCharityInDB);
     //    System.out.println("Rows Affected : " + rowsAffected);
-    //
-    //    Charity updatedCharity = charityDao.findByCharityTaxId(foundCharity.getCharityTaxId());
-    //    System.out.println(updatedCharity);
+
+    //    Charity updatedCharity = charityDao.findByCharityTaxId(findCharityInDB.getCharityTaxId());
+    //    System.out.println("Updated Charity in DB: " + updatedCharity);
     //
     //    Charity foundUpdatedCharity =
     // charityDao.findByCharityTaxId(updatedCharity.getCharityTaxId());
     //    System.out.println(foundUpdatedCharity);
     //
-    //    int rowsDeleted = charityDao.delete(foundCharity);
+    //    int rowsDeleted = charityDao.delete(findCharityInDB);
     //    System.out.println("Rows Affected : " + rowsDeleted);
   }
 }
