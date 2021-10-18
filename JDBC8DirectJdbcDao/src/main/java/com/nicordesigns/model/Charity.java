@@ -116,8 +116,10 @@ public class Charity {
   @Override
   public String toString() {
     return "Charity{"
+        + '\n'
         + "charityId="
         + charityId
+        + '\n'
         + ", charityTaxId='"
         + charityTaxId
         + '\n'

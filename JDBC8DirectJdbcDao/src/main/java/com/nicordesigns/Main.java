@@ -46,13 +46,17 @@ public class Main {
     Charity findCharityInDB = charityDao.findByCharityTaxId(charity.getCharityTaxId());
     System.out.println("Charity retrieved from MariaDB: " + findCharityInDB);
 
-    //    findCharityInDB.setCharityName("Update_" + charity.getCharityName());
-    //    findCharityInDB.setCharityMission("Update_" + charity.getCharityMission());
-    //    int rowsAffected = charityDao.update(findCharityInDB);
-    //    System.out.println("Rows Affected : " + rowsAffected);
+    findCharityInDB.setCharityName(charity.getCharityName() + "_Updated");
+    findCharityInDB.setCharityMission(charity.getCharityMission() + "_Updated");
+    Category updateCategory = new Category("EDUCATION");
+    findCharityInDB.setCharityCategory(updateCategory);
+    System.out.println("Charity to be updated: " + findCharityInDB);
 
-    //    Charity updatedCharity = charityDao.findByCharityTaxId(findCharityInDB.getCharityTaxId());
-    //    System.out.println("Updated Charity in DB: " + updatedCharity);
+    int rowsAffected = charityDao.update(findCharityInDB);
+    System.out.println("Rows Affected : " + rowsAffected);
+
+    Charity updatedCharity = charityDao.findByCharityTaxId(findCharityInDB.getCharityTaxId());
+    System.out.println("Updated Charity in DB: " + updatedCharity);
     //
     //    Charity foundUpdatedCharity =
     // charityDao.findByCharityTaxId(updatedCharity.getCharityTaxId());

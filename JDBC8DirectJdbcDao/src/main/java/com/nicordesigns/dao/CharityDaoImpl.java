@@ -282,12 +282,27 @@ public class CharityDaoImpl implements CharityDao {
       if (rowUpdateCount > 0) {
         // Update the Charity Category
         var updateCategory = charity.getCharityCategory();
-        var charityCategory = findCategoryForCharity(charity, connection);
-        if (charityCategory != null) {
-          if (!updateCategory.equals(charityCategory)) {
-            charityCategoryRelationshipRowsInserted =
-                updateCharityCategoryRelationship(
-                    connection, updateCategory.getCategoryId(), charity.getCharityId());
+        System.out.println("Category to be updated: " + updateCategory);
+        var findCharityCategoryDB = findCategoryForCharity(charity, connection);
+        System.out.println("Category retrieved from MariaDB: " + findCharityCategoryDB);
+
+        if (findCharityCategoryDB != null) {
+          // Line 290
+          if (!updateCategory.equals(findCharityCategoryDB)) {
+
+            if (updateCategory.getCategoryId() != 0) {
+              charityCategoryRelationshipRowsInserted =
+                  updateCharityCategoryRelationship(
+                      connection, updateCategory.getCategoryId(), charity.getCharityId());
+            } else {
+              // Find Category by name
+              var findCategory = findCategoryByName(updateCategory.getCategoryName(), connection);
+
+              // Update Charity Category RelationShip Table
+              charityCategoryRelationshipRowsInserted =
+                  updateCharityCategoryRelationship(
+                      connection, charity.getCharityId(), findCategory.getCategoryId());
+            }
           }
         } else {
           // Insert Charity Category into Category table
@@ -428,32 +443,20 @@ public class CharityDaoImpl implements CharityDao {
     return charity;
   }
 
-  public Charity findByCharityTaxId(String taxId, Connection connection) {
-    String sqlQuery = "SELECT * FROM charity WHERE CHARITY_TAX_ID = ?";
-    Charity charity = null;
+  public Category findCategoryByName(String categoryName, Connection connection) {
+    String sqlQuery = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
+    Category category = null;
 
     try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
-      preparedStatement.setString(1, taxId);
+      preparedStatement.setString(1, categoryName);
       ResultSet rs = preparedStatement.executeQuery();
       if (rs.next()) {
-        charity =
-            new Charity(
-                rs.getInt("CHARITY_ID"),
-                rs.getString("CHARITY_TAX_ID"),
-                rs.getString("CHARITY_NAME"),
-                rs.getString("CHARITY_MISSION"),
-                rs.getString("CHARITY_WEB_ADDRESS"),
-                rs.getString("CHARITY_FACEBOOK_ADDRESS"),
-                rs.getString("CHARITY_TWITTER_ADDRESS"));
-
-        Category charityCategory = findCategoryForCharity(charity, connection);
-
-        charity.setCharityCategory(charityCategory);
+        category = new Category(rs.getInt("CATEGORY_ID"), rs.getString("CATEGORY_NAME"));
       }
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
     }
 
-    return charity;
+    return category;
   }
 }
