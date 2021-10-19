@@ -34,7 +34,7 @@
 
 ### 6  Create the Application with a Main Method that runs the insert and find methods
 
-    We define our MaiariDB Pool Data Source in the Spring beans.xml file
+    We define our MariaDB Pool Data Source in the Spring beans.xml file
     https://mariadb.com/kb/en/pool-datasource-implementation/
 
     We now also define our DAO class in the Spring beans.xml file

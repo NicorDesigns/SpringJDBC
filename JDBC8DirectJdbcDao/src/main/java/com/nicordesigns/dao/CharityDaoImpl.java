@@ -335,21 +335,14 @@ public class CharityDaoImpl implements CharityDao {
         rowDeleteCount = preparedStatement.executeUpdate();
 
         if (rowDeleteCount == 1) {
-          // delete charity category relationship table row
+          Category categoryFromName =
+              findCategoryByName(charity.getCharityCategory().getCategoryName(), connection);
           int categoryCharityRelationshipRowsDeleted =
               deleteCategoryCharityRelationship(
-                  charity.getCharityId(), charity.getCharityCategory().getCategoryId(), connection);
+                  charity.getCharityId(), categoryFromName.getCategoryId(), connection);
           System.out.println(
               "Charity Category Relationship Rows Deleted = "
                   + categoryCharityRelationshipRowsDeleted);
-
-          // if there are no more relationships left for the Category then delete the Category from
-          // the Categories table
-          Category category = findCategoryForCharity(charity, connection);
-          if (category != null) {
-            int deletedCategoryRows = deleteCategory(charity.getCharityCategory(), connection);
-            System.out.println("deleted Category Rows" + deletedCategoryRows);
-          }
         }
       }
     } catch (SQLException sqlException) {
@@ -399,6 +392,9 @@ public class CharityDaoImpl implements CharityDao {
       if (rowDeleteCount == 1) {
         System.out.println(
             "Charity Category Row deleted [" + charityId + " , " + categoryId + " ]");
+      } else {
+        System.out.println(
+            "Charity Category Row not deleted [" + charityId + " , " + categoryId + " ]");
       }
 
     } catch (SQLException sqlException) {
