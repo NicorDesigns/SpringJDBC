@@ -23,6 +23,7 @@
         <module>JDBC6EmbeddedTomcatSpringConfigClass</module>
         <module>JDBC7RegularDao</module>
         <module>JDBC8DirectJdbcDao</module>
+        <module>JDBC9JdbcDaoSupport</module>
     </modules>
 
     <packaging>pom</packaging>

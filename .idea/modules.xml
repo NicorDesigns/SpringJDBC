@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/JDBC6EmbeddedTomcatSpringConfigClass/JDBC6EmbeddedTomcatSpringConfigClass.iml" filepath="$PROJECT_DIR$/JDBC6EmbeddedTomcatSpringConfigClass/JDBC6EmbeddedTomcatSpringConfigClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC7RegularDao/JDBC7RegularDao.iml" filepath="$PROJECT_DIR$/JDBC7RegularDao/JDBC7RegularDao.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC8DirectJdbcDao/JDBC8DirectJdbcDao.iml" filepath="$PROJECT_DIR$/JDBC8DirectJdbcDao/JDBC8DirectJdbcDao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDBC9JdbcDaoSupport/JDBC9JdbcDaoSupport.iml" filepath="$PROJECT_DIR$/JDBC9JdbcDaoSupport/JDBC9JdbcDaoSupport.iml" />
       <module fileurl="file://$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" filepath="$PROJECT_DIR$/MariaDBConnect/MariaDBConnect.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringJDBC.iml" filepath="$PROJECT_DIR$/SpringJDBC.iml" />
     </modules>

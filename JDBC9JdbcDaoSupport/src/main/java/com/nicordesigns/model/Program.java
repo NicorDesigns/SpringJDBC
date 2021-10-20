@@ -1,7 +1,5 @@
 package com.nicordesigns.model;
 
-import java.util.Objects;
-
 public class Program {
 
   private int programId;
@@ -37,18 +35,5 @@ public class Program {
         + programDescription
         + '\''
         + '}';
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Program)) return false;
-    Program program = (Program) o;
-    return getProgramDescription().equals(program.getProgramDescription());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getProgramDescription());
   }
 }

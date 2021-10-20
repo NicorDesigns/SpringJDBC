@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    https://mariadb.com/kb/en/pool-datasource-implementation/-->
+
+    <bean id="dataSource" class="org.mariadb.jdbc.MariaDbPoolDataSource">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="3306"/>
+        <property name="url" value="jdbc:mariadb://localhost:3306/charityDB"/>
+        <property name="user" value="root"/>
+        <property name="password" value="secret"/>
+        <property name="databaseName" value="charityDB"/>
+        <property name="maxPoolSize" value="10"/>
+        <property name="poolName" value="JDBCPool"/>
+    </bean>
+
+    <bean id="charityDao" class="com.nicordesigns.dao.JdbcCharityDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>

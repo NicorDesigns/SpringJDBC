@@ -12,6 +12,7 @@
         <module name="MariaDBConnect" />
         <module name="JDBC6EmbeddedTomcatSpringConfigClass" />
         <module name="JDBC8DirectJdbcDao" />
+        <module name="JDBC9JdbcDaoSupport" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
         <module name="JDBC7RegularDao" />
@@ -27,6 +28,7 @@
       <module name="JDBC6EmbeddedTomcatSpringConfigClass" target="11" />
       <module name="JDBC7RegularDao" target="11" />
       <module name="JDBC8DirectJdbcDao" target="11" />
+      <module name="JDBC9JdbcDaoSupport" target="11" />
       <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
       <module name="SpringJDBC" target="11" />
