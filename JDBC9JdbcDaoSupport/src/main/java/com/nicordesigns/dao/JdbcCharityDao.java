@@ -1,6 +1,7 @@
 package com.nicordesigns.dao;
 
 import com.nicordesigns.model.Charity;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -8,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class JdbcCharityDao extends JdbcDaoSupport implements CharityDao {
@@ -118,6 +120,50 @@ public class JdbcCharityDao extends JdbcDaoSupport implements CharityDao {
     //            charity.getCharityWebAddress(),
     //            charity.getCharityFacebookAddress(),
     //            charity.getCharityTwitterAddress());
+  }
+
+  // Step 6 is to demo batch update
+  @Override
+  public int[] insertBatch(final List<Charity> charityList) {
+    String sqlInsertCharity =
+        "INSERT INTO charity"
+            + "(CHARITY_TAX_ID, "
+            + "CHARITY_NAME, "
+            + "CHARITY_MISSION, "
+            + "CHARITY_WEB_ADDRESS, "
+            + "CHARITY_FACEBOOK_ADDRESS, "
+            + "CHARITY_TWITTER_ADDRESS) "
+            + "VALUES("
+            + "?, "
+            + "?, "
+            + "?, "
+            + "?, "
+            + "?, "
+            + "?"
+            + ")";
+
+    assert getJdbcTemplate() != null;
+    return getJdbcTemplate()
+        .batchUpdate(
+            sqlInsertCharity,
+            new BatchPreparedStatementSetter() {
+              @Override
+              public void setValues(PreparedStatement preparedStatement, int i)
+                  throws SQLException {
+                Charity charity = charityList.get(i);
+                preparedStatement.setString(1, charity.getCharityTaxId());
+                preparedStatement.setString(2, charity.getCharityName());
+                preparedStatement.setString(3, charity.getCharityMission());
+                preparedStatement.setString(4, charity.getCharityWebAddress());
+                preparedStatement.setString(5, charity.getCharityFacebookAddress());
+                preparedStatement.setString(6, charity.getCharityTwitterAddress());
+              }
+
+              @Override
+              public int getBatchSize() {
+                return charityList.size();
+              }
+            });
   }
 
   @Override
