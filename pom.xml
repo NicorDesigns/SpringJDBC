@@ -24,6 +24,7 @@
         <module>JDBC7RegularDao</module>
         <module>JDBC8DirectJdbcDao</module>
         <module>JDBC9JdbcDaoSupport</module>
+        <module>JDBC10JdbcDaoSupportTransactions</module>
     </modules>
 
     <packaging>pom</packaging>
