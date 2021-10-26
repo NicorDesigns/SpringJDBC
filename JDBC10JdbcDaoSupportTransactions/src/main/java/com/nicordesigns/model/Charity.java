@@ -134,25 +134,25 @@ public class Charity {
     return "Charity{"
         + "charityId='"
         + charityId
-        + '\''
+        + '\n'
         + ", charityTaxId='"
         + charityTaxId
-        + '\''
+        + '\n'
         + ", charityName='"
         + charityName
-        + '\''
+        + '\n'
         + ", charityMission='"
         + charityMission
-        + '\''
+        + '\n'
         + ", charityWebAddress='"
         + charityWebAddress
-        + '\''
+        + '\n'
         + ", charityFacebookAddress='"
         + charityFacebookAddress
-        + '\''
+        + '\n'
         + ", charityTwitterAddress='"
         + charityTwitterAddress
-        + '\''
+        + '\n'
         + ", charityCategory="
         + charityCategory
         + '}';
