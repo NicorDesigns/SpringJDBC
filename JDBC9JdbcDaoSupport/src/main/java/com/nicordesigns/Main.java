@@ -1,7 +1,7 @@
 package com.nicordesigns;
 
 import com.nicordesigns.dao.CharityDao;
-import com.nicordesigns.dao.JdbcCharityDao;
+import com.nicordesigns.dao.JdbcTemplateCharityDaoImpl;
 import com.nicordesigns.model.Category;
 import com.nicordesigns.model.Charity;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,7 +18,7 @@ public class Main {
     DataSource dataSource = context.getBean(DataSource.class);
     System.out.println(dataSource);
 
-    CharityDao charityDao = context.getBean(JdbcCharityDao.class);
+    CharityDao charityDao = context.getBean(JdbcTemplateCharityDaoImpl.class);
     Category categoryZisize = new Category("DISABILITIES");
     System.out.println("Created new Category: " + categoryZisize);
 

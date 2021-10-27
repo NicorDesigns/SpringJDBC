@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JdbcCharityDao extends JdbcDaoSupport implements CharityDao {
+public class JdbcTemplateCharityDaoImpl extends JdbcDaoSupport implements CharityDao {
 
   @Override
   public int insert(Charity charity) {

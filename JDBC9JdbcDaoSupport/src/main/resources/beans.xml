@@ -16,7 +16,7 @@
         <property name="poolName" value="JDBCPool"/>
     </bean>
 
-    <bean id="charityDao" class="com.nicordesigns.dao.JdbcCharityDao">
+    <bean id="charityDao" class="com.nicordesigns.dao.JdbcTemplateCharityDaoImpl">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
