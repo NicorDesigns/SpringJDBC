@@ -1,20 +1,20 @@
-## Updating the database with a more rigorous relationship entity model.
+## Updating the database with a more rigorous relationship entity model part 2.
 
-## Using a DAO with Spring JdbcDaoSupport to be able to do CREATE with transactions that can be rolled back.
+## Using a DAO with Spring JdbcDaoSupport to be able to do full range of CRUD with transactions that can be rolled back.
 
-    (This is a build out of JDBC9SpringJdbcDaoSupport)
+    (This is a build out of JDBC10SpringJdbcDaoSupportTransactions)
 
-### 1 Using IntelliJ we create a new Java Maven Module (JDBC10JdbcDaoSupportTransactions)
+### 1 Using IntelliJ we create a new Java Maven Module (JDBC11JdbcDaoSupportTrx)
 
 #### File -> New Module -> Maven (No Archetype Selected)
 
-#### ArtifactId : JDBC10JdbcDaoSupportTransactions
+#### ArtifactId : JDBC11JdbcDaoSupportTrx
 
 ### 2 Create package com.nicordesigns
 
 ### 3 Update the generated Maven POM.XML files where required
 
-    We will use JDBC9SpringJdbcDaoSupport as a guide for setting up our Data Source    
+    We will use JDBC10SpringJdbcDaoSupportTransactions as a guide for setting up our Data Source    
 
     Add the mariadb-java-client to the POM     
 
@@ -26,6 +26,8 @@
 
     First we create the Charity Model Object and its related Model Objects Category and Program
     For this run we will introduce a one to one mapping between Charity and Category.
+
+**Add a one to many relationship between Charity and Program**
 
     Then we create the Charity DAO Interface and the Charity DAO Implementation
 
