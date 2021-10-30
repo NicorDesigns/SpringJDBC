@@ -22,10 +22,10 @@ public class Main {
     Charity charityZisize = createCharity();
 
     int charityId = charityService.createCharity(charityZisize);
-    System.out.println(charityZisize + " inserted : DB Generated charityId: " + charityId);
+    System.out.println("charityZisizeDB inserted : DB Generated charityId: " + charityId);
 
     Charity charityZisizeDB = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println(charityZisizeDB);
+    System.out.println("charityZisizeDB = " + charityZisizeDB);
 
     //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
     //    Charity charityYMCA =

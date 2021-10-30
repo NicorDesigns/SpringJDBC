@@ -21,6 +21,7 @@ public class CharityServiceImpl implements CharityService {
   }
 
   @Override
+  @Transactional
   public Charity findByCharityTaxId(String taxId) {
     return charityDao.findByCharityTaxId(taxId);
   }

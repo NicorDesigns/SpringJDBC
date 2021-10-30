@@ -76,7 +76,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
       System.out.println("Finding Charity Programs for Charity " + charity.getCharityPrograms());
 
-      var charityProgramsInDb = findProgramsForCharity(charity);
+      var charityProgramsInDb = findProgramsListInDB(charity.getCharityPrograms());
       System.out.println("charityProgramsInDb = " + charityProgramsInDb);
 
       for (Program program : charity.getCharityPrograms()) {
@@ -125,14 +125,14 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
             resultSet -> resultSet.next() ? resultSet.getInt("PROGRAM_ID") : null);
   }
 
-  private List<Program> findProgramsForCharity(Charity charity) {
-    System.out.println("findProgramsForCharity " + charity.getCharityPrograms());
+  private List<Program> findProgramsListInDB(List<Program> charityProgramList) {
+    System.out.println("findProgramsForCharity " + charityProgramList);
 
     List<Program> charityPrograms = new ArrayList<>();
 
     assert getJdbcTemplate() != null;
     String sqlQueryPrograms = "SELECT * FROM program WHERE PROGRAM_DESCRIPTION = ?";
-    for (Program program : charity.getCharityPrograms()) {
+    for (Program program : charityProgramList) {
       var rows = getJdbcTemplate().queryForList(sqlQueryPrograms, program.getProgramType());
 
       for (Map<String, Object> row : rows) {
@@ -153,9 +153,9 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
       System.out.println(
           "Finding Charity Category for Charity Category  " + charity.getCharityCategory());
 
-      var category = findCategoryForCharity(charity);
+      var category = findCategoryByName(charity.getCharityCategory().getCategoryName());
 
-      Integer categoryId;
+      Integer categoryId = null;
       if (category == null) {
         categoryId = insertCategoryForCharity(charity);
       } else {
@@ -326,9 +326,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     return Objects.requireNonNull(categoryKeyHolder.getKey()).intValue();
   }
 
-  private Category findCategoryForCharity(Charity charity) {
-    System.out.println("findCategoryForCharity " + charity.getCharityCategory().getCategoryName());
-
+  private Category findCategoryByName(String categoryName) {
     assert getJdbcTemplate() != null;
 
     BeanPropertyRowMapper<Category> charityRowMapper =
@@ -337,9 +335,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     assert getJdbcTemplate() != null;
 
     String sqlQueryCategory = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
-    return getJdbcTemplate()
-        .queryForObject(
-            sqlQueryCategory, charityRowMapper, charity.getCharityCategory().getCategoryName());
+    return getJdbcTemplate().queryForObject(sqlQueryCategory, charityRowMapper, categoryName);
   }
 
   private Integer findCategoryCharityRelationshipRow(Charity charity) {
@@ -453,6 +449,60 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
         BeanPropertyRowMapper.newInstance(Charity.class);
 
     assert getJdbcTemplate() != null;
-    return getJdbcTemplate().queryForObject(sqlQuery, charityRowMapper, charityTaxId);
+
+    var charity = getJdbcTemplate().queryForObject(sqlQuery, charityRowMapper, charityTaxId);
+    var category = findCategoryForCharity(charity);
+    assert charity != null;
+    charity.setCharityCategory(category);
+    var charityProgramsInDb = findProgramsForCharityIdInDB(charity.getCharityId());
+    charity.setCharityPrograms(charityProgramsInDb);
+
+    return charity;
+  }
+
+  private List<Program> findProgramsForCharityIdInDB(int charityId) {
+    // Get List of Program Ids from charity_program table
+    assert getJdbcTemplate() != null;
+    List<Program> programList = new ArrayList<>();
+    String sqlQueryProgramIdList = "SELECT * FROM charity_program WHERE CHARITY_ID = ?";
+    var programIdRows = getJdbcTemplate().queryForList(sqlQueryProgramIdList, charityId);
+
+    // Get List of Programs from program table
+    for (Map<String, Object> programIdRow : programIdRows) {
+      var programId = (Integer) programIdRow.get("PROGRAM_ID");
+      String sqlQueryProgramList = "SELECT * FROM program WHERE PROGRAM_ID = ?";
+      var programRows = getJdbcTemplate().queryForList(sqlQueryProgramList, programId);
+      for (Map<String, Object> programRow : programRows) {
+        Program foundProgram = new Program();
+        foundProgram.setProgramId((Integer) programRow.get("PROGRAM_ID"));
+        foundProgram.setProgramType((String) programRow.get("PROGRAM_DESCRIPTION"));
+        programList.add(foundProgram);
+      }
+    }
+    return programList;
+  }
+
+  private Category findCategoryForCharity(Charity charity) {
+    Category category = null;
+    var categoryId = findCategoryCharityRelationshipRow(charity);
+    if (categoryId != null) {
+      category = findCategoryById(categoryId);
+    }
+    return category;
+  }
+
+  private Category findCategoryById(Integer categoryId) {
+    Category category = null;
+
+    String sqlQuery = "SELECT * FROM category WHERE CATEGORY_ID = ?";
+    BeanPropertyRowMapper<Category> categoryBeanPropertyRowMapper =
+        BeanPropertyRowMapper.newInstance(Category.class);
+
+    assert getJdbcTemplate() != null;
+
+    category =
+        getJdbcTemplate().queryForObject(sqlQuery, categoryBeanPropertyRowMapper, categoryId);
+
+    return category;
   }
 }
