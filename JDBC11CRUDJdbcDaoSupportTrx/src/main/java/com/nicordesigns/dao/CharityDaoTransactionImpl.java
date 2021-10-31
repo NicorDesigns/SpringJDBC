@@ -432,8 +432,18 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
                 charity.getCharityTaxId());
 
     // TODO Update charity category
-    // TODO Update Charity Programs
+    var charityCategory = charity.getCharityCategory();
 
+    // find Category by Charity Tax Id in DB
+
+    // Update Category Name in DB with Charity Category Name
+
+    // TODO Update Charity Programs
+    var charityPrograms = charity.getCharityPrograms();
+    // find Program List by Charity Tax Id in DB (Relationship Table)
+    // find Program List in Charity to be updated
+    // Delete Program in DB that are not in the current Charity Program List
+    // Insert new Programs that are not in the DB Program List
     return charityRow;
   }
 
@@ -447,8 +457,8 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     assert getJdbcTemplate() != null;
     return getJdbcTemplate().update(sqlQuery, args);
     // TODO Delete Category if there are no other Charities left with the same Category
-    // TODO Delete Program if there are no other Charities left with the same Program
-    // (for every Program)
+    // TODO Delete Program if there are no other Charities left with the same Program (for every
+    // Program)
   }
 
   @Override
