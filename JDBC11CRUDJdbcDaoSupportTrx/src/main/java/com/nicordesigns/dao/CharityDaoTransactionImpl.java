@@ -420,15 +420,21 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
             + " WHERE CHARITY_TAX_ID = ?";
 
     assert getJdbcTemplate() != null;
-    return getJdbcTemplate()
-        .update(
-            sqlUpdate,
-            charity.getCharityName(),
-            charity.getCharityMission(),
-            charity.getCharityWebAddress(),
-            charity.getCharityFacebookAddress(),
-            charity.getCharityTwitterAddress(),
-            charity.getCharityTaxId());
+    var charityRow =
+        getJdbcTemplate()
+            .update(
+                sqlUpdate,
+                charity.getCharityName(),
+                charity.getCharityMission(),
+                charity.getCharityWebAddress(),
+                charity.getCharityFacebookAddress(),
+                charity.getCharityTwitterAddress(),
+                charity.getCharityTaxId());
+
+    // TODO Update charity category
+    // TODO Update Charity Programs
+
+    return charityRow;
   }
 
   @Override
@@ -440,6 +446,9 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
     assert getJdbcTemplate() != null;
     return getJdbcTemplate().update(sqlQuery, args);
+    // TODO Delete Category if there are no other Charities left with the same Category
+    // TODO Delete Program if there are no other Charities left with the same Program
+    // (for every Program)
   }
 
   @Override
