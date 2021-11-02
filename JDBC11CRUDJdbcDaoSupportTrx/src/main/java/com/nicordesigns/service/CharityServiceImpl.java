@@ -28,7 +28,7 @@ public class CharityServiceImpl implements CharityService {
 
   @Override
   @Transactional
-  public int update(Charity charity) {
+  public int update(Charity charity) throws SQLException {
     return charityDao.update(charity);
   }
 

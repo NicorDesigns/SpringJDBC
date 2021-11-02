@@ -10,7 +10,7 @@ public interface CharityService {
 
   Charity findByCharityTaxId(String s);
 
-  int update(Charity charity);
+  int update(Charity charity) throws SQLException;
 
   int delete(Charity charity) throws SQLException;
 }

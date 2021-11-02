@@ -5,7 +5,6 @@ import com.nicordesigns.model.Charity;
 import com.nicordesigns.model.Program;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -146,7 +145,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     return charityPrograms;
   }
 
-  private void charityCategoryUpdate(Charity charity, int charityRowInserted) throws SQLException {
+  public void charityCategoryUpdate(Charity charity, int charityRowInserted) throws SQLException {
 
     if (charityRowInserted == 1) {
 
@@ -155,9 +154,9 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
       var category = findCategoryByName(charity.getCharityCategory().getCategoryName());
 
-      Integer categoryId = null;
+      Integer categoryId;
       if (category == null) {
-        categoryId = insertCategoryForCharity(charity);
+        categoryId = insertCategoryForCharity(charity.getCharityCategory().getCategoryName());
       } else {
         categoryId = category.getCategoryId();
       }
@@ -166,7 +165,9 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
           "Finding Charity Category Relationship for Charity Category  "
               + charity.getCharityCategory());
 
-      Integer charityCategoryRelId = findCategoryCharityRelationshipRow(charity);
+      Integer charityCategoryRelId =
+          CharityCategorySupportDao.findCategoryIdInCharityRelationshipRow(
+              this.getJdbcTemplate(), charity.getCharityId());
 
       System.out.println("Charity Category Relationship Category Id =  " + charityCategoryRelId);
 
@@ -186,7 +187,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     }
   }
 
-  private int updateCharityCategoryRelationship(int charityId, Integer categoryId)
+  public int updateCharityCategoryRelationship(int charityId, Integer categoryId)
       throws SQLException {
 
     if (charityId == 0) {
@@ -226,7 +227,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
             });
   }
 
-  private int insertCharityCategoryRelationship(int charityId, int categoryId) throws SQLException {
+  public int insertCharityCategoryRelationship(int charityId, int categoryId) throws SQLException {
 
     if (categoryId == 0) {
       throw new SQLException("categoryId can not be 0");
@@ -309,24 +310,23 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     return Objects.requireNonNull(programKeyHolder.getKey()).intValue();
   }
 
-  private int insertCategoryForCharity(Charity charity) {
-    System.out.println(
-        "INSERT INTO category (CATEGORY_NAME) VALUES (?) "
-            + charity.getCharityCategory().getCategoryName());
+  public int insertCategoryForCharity(String categoryName) {
     String sqlInsertCategory = "INSERT INTO category (CATEGORY_NAME) VALUES (?)";
     assert getJdbcTemplate() != null;
     KeyHolder categoryKeyHolder = new GeneratedKeyHolder();
     getJdbcTemplate()
         .update(
-            sqlInsertCategory,
-            (PreparedStatementSetter)
-                preparedStatement ->
-                    preparedStatement.setString(1, charity.getCharityCategory().getCategoryName()),
+            connection -> {
+              PreparedStatement preparedStatement =
+                  connection.prepareStatement(sqlInsertCategory, Statement.RETURN_GENERATED_KEYS);
+              preparedStatement.setString(1, categoryName);
+              return preparedStatement;
+            },
             categoryKeyHolder);
     return Objects.requireNonNull(categoryKeyHolder.getKey()).intValue();
   }
 
-  private Category findCategoryByName(String categoryName) {
+  public Category findCategoryByName(String categoryName) {
     assert getJdbcTemplate() != null;
 
     BeanPropertyRowMapper<Category> charityRowMapper =
@@ -335,21 +335,16 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     assert getJdbcTemplate() != null;
 
     String sqlQueryCategory = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
-    return getJdbcTemplate().queryForObject(sqlQueryCategory, charityRowMapper, categoryName);
-  }
-
-  private Integer findCategoryCharityRelationshipRow(Charity charity) {
-
-    assert getJdbcTemplate() != null;
-
-    System.out.println(
-        "SELECT CATEGORY_ID FROM charity_category WHERE CHARITY_ID =   " + charity.getCharityId());
-    String sqlQuery = "SELECT CATEGORY_ID FROM charity_category WHERE CHARITY_ID = ?";
-    return getJdbcTemplate()
-        .query(
-            sqlQuery,
-            new Object[] {charity.getCharityId()},
-            resultSet -> resultSet.next() ? resultSet.getInt("CATEGORY_ID") : null);
+    var category_id =
+        getJdbcTemplate()
+            .query(
+                sqlQueryCategory,
+                new Object[] {categoryName},
+                resultSet -> resultSet.next() ? resultSet.getInt("CATEGORY_ID") : null);
+    if (category_id != null) {
+      return CharityCategorySupportDao.findCategoryById(getJdbcTemplate(), category_id);
+    }
+    return null;
   }
 
   private Integer findCharityProgramRelationshipRow(int programId, int charityId) {
@@ -410,7 +405,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
   }
 
   @Override
-  public int update(Charity charity) {
+  public int update(Charity charity) throws SQLException {
     String sqlUpdate =
         "UPDATE charity SET CHARITY_NAME = ?,"
             + " CHARITY_MISSION = ?, "
@@ -431,12 +426,31 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
                 charity.getCharityTwitterAddress(),
                 charity.getCharityTaxId());
 
-    // TODO Update charity category
-    var charityCategory = charity.getCharityCategory();
-
+    var charityCategoryUpdate = charity.getCharityCategory();
     // find Category by Charity Tax Id in DB
+    var charityCategoryInDb = findCategoryForCharity(charity);
 
     // Update Category Name in DB with Charity Category Name
+    if (charityCategoryInDb != null && !charityCategoryUpdate.equals(charityCategoryInDb)) {
+      var doesCategoryExistInDB =
+          findCategoryByName(charity.getCharityCategory().getCategoryName());
+      int updateCharityCategoryRow;
+      if (doesCategoryExistInDB != null) {
+        updateCharityCategoryRow =
+            updateCharityCategoryRelationship(
+                charity.getCharityId(), doesCategoryExistInDB.getCategoryId());
+        System.out.println("Update CharityCategory Row Count" + updateCharityCategoryRow);
+      } else {
+        var insertCharityCategoryId =
+            insertCategoryForCharity(charity.getCharityCategory().getCategoryName());
+        System.out.println("Insert CharityCategory Id : " + insertCharityCategoryId);
+        updateCharityCategoryRow =
+            updateCharityCategoryRelationship(charity.getCharityId(), insertCharityCategoryId);
+        System.out.println(
+            "Update CharityCategory Relationship (Row Total) : " + updateCharityCategoryRow);
+      }
+      System.out.println("Charity Category Relationship Row Updated");
+    }
 
     // TODO Update Charity Programs
     var charityPrograms = charity.getCharityPrograms();
@@ -501,27 +515,14 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     return programList;
   }
 
-  private Category findCategoryForCharity(Charity charity) {
+  public Category findCategoryForCharity(Charity charity) {
     Category category = null;
-    var categoryId = findCategoryCharityRelationshipRow(charity);
+    var categoryId =
+        CharityCategorySupportDao.findCategoryIdInCharityRelationshipRow(
+            this.getJdbcTemplate(), charity.getCharityId());
     if (categoryId != null) {
-      category = findCategoryById(categoryId);
+      category = CharityCategorySupportDao.findCategoryById(getJdbcTemplate(), categoryId);
     }
-    return category;
-  }
-
-  private Category findCategoryById(Integer categoryId) {
-    Category category = null;
-
-    String sqlQuery = "SELECT * FROM category WHERE CATEGORY_ID = ?";
-    BeanPropertyRowMapper<Category> categoryBeanPropertyRowMapper =
-        BeanPropertyRowMapper.newInstance(Category.class);
-
-    assert getJdbcTemplate() != null;
-
-    category =
-        getJdbcTemplate().queryForObject(sqlQuery, categoryBeanPropertyRowMapper, categoryId);
-
     return category;
   }
 }

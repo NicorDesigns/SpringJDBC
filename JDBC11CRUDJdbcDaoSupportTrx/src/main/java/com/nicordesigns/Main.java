@@ -25,7 +25,26 @@ public class Main {
     System.out.println("charityZisizeDB inserted : DB Generated charityId: " + charityId);
 
     Charity charityZisizeDB = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println("charityZisizeDB = " + charityZisizeDB);
+    System.out.println("charityZisizeDB retrieved : " + charityZisizeDB);
+
+    // Update Charity Category with a new Category Type
+    Category disabilitiesUpdate = new Category("DISABILITIES UPDATE");
+    charityZisize.setCharityCategory(disabilitiesUpdate);
+
+    var charityRowUpdated = charityService.update(charityZisize);
+    System.out.println("Charity Rows Updated : " + charityRowUpdated);
+
+    Charity charityZisizeDB2 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
+
+    // Update Charity Category with an existing Category Type
+    Category disabilitiesUpdateRegular = new Category("DISABILITIES");
+    charityZisize.setCharityCategory(disabilitiesUpdateRegular);
+
+    var charityRowUpdatedRegular = charityService.update(charityZisize);
+    System.out.println("Charity Rows Updated : " + charityRowUpdated);
+    Charity charityZisizeDB3 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
 
     //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
     //    Charity charityYMCA =

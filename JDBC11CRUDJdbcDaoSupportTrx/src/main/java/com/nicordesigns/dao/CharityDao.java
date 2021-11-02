@@ -11,7 +11,7 @@ public interface CharityDao {
 
   int[] insertBatch(List<Charity> charityList);
 
-  int update(Charity charity);
+  int update(Charity charity) throws SQLException;
 
   int delete(Charity charity) throws SQLException;
 
