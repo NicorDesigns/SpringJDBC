@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
@@ -37,7 +38,7 @@ public class Main {
     Charity charityZisizeDB2 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
     System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
 
-    // Update Charity Category with an existing Category Type
+    // Update the Charity Category with an existing Category Type
     Category disabilitiesUpdateRegular = new Category("DISABILITIES");
     charityZisize.setCharityCategory(disabilitiesUpdateRegular);
 
@@ -46,29 +47,40 @@ public class Main {
     Charity charityZisizeDB3 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
     System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
 
+    // Update the Charity with a different list of Programs
     charityZisizeDB.setCharityPrograms(addPrograms());
     var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
     System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular2);
     Charity charityZisizeDB4 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
     System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
 
-    //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
-    //    Charity charityYMCA =
-    //        new Charity(
-    //            "XXXXXXXXXX1",
-    //            "YMCA South Africa ",
-    //            "YMCA is the oldest Christian Youth Development organisation in the world"
-    //                + "...reaching 65 million young people worldwide.  ",
-    //            "https://www.saymca.org.za/",
-    //            "https://www.facebook.com/YMCASouthAfrica/",
-    //            "https://twitter.com/ymca_sa");
-    //    charityYMCA.setCharityCategory(categoryYMCA);
-    //    int charityId = charityService.createCharity(charityYMCA);
-    //    System.out.println(charityYMCA + " inserted : DB Generated charityId: " + charityId);
-    //
-    //    Charity charity1 = charityService.findByCharityTaxId("XXXXXXXXXX1");
-    //    System.out.println(charity1);
+    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
+    Charity charityYMCA =
+        new Charity(
+            "XXXXXXXXXX1",
+            "YMCA South Africa ",
+            "YMCA is the oldest Christian Youth Development organisation in the world"
+                + "...reaching 65 million young people worldwide.  ",
+            "https://www.saymca.org.za/",
+            "https://www.facebook.com/YMCASouthAfrica/",
+            "https://twitter.com/ymca_sa");
+    charityYMCA.setCharityCategory(categoryYMCA);
+    charityYMCA.setCharityPrograms(addYMCAPrograms());
+    int ymcaCharityId = charityService.createCharity(charityYMCA);
+    System.out.println(charityYMCA + " inserted : DB Generated charityId: " + ymcaCharityId);
 
+    var charityYMCADB1 = charityService.findByCharityTaxId("XXXXXXXXXX1");
+    System.out.println(charityYMCADB1);
+
+    // Delete the Charity in the DB
+    var deleteCharityRowCount = charityService.delete(charityYMCADB1);
+    System.out.println("Delete Charity Row-Count " + deleteCharityRowCount);
+    var charityYMCADB2 = charityService.findByCharityTaxId("XXXXXXXXXX1");
+    if (Objects.isNull(charityYMCADB2)) {
+      System.out.println("Charity has been deleted from DB " + charityYMCADB1);
+    } else {
+      System.out.println("Charity has not been deleted from DB " + charityYMCADB2);
+    }
     //    Category categoryUSCA = new Category("RELIGION");
     //    Charity charityUMCA =
     //        new Charity(
@@ -97,6 +109,13 @@ public class Main {
     //    }
 
     context.close();
+  }
+
+  private static List<Program> addYMCAPrograms() {
+    List<Program> programList = new ArrayList<>();
+    programList.add(new Program("Y Fit"));
+    programList.add(new Program("Y Health"));
+    return programList;
   }
 
   private static List<Program> addPrograms() {

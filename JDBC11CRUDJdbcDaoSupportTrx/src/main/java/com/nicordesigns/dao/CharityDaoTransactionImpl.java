@@ -4,7 +4,6 @@ import com.nicordesigns.model.Category;
 import com.nicordesigns.model.Charity;
 import com.nicordesigns.model.Program;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -12,7 +11,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class CharityDaoTransactionImpl extends JdbcDaoSupport implements CharityDao {
 
@@ -328,16 +330,13 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
   }
 
   public Category findCategoryByName(String categoryName) {
-    assert getJdbcTemplate() != null;
 
-    BeanPropertyRowMapper<Category> charityRowMapper =
-        BeanPropertyRowMapper.newInstance(Category.class);
-
-    assert getJdbcTemplate() != null;
+    //    BeanPropertyRowMapper<Category> charityRowMapper =
+    //        BeanPropertyRowMapper.newInstance(Category.class);
 
     String sqlQueryCategory = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
     var category_id =
-        getJdbcTemplate()
+        Objects.requireNonNull(getJdbcTemplate())
             .query(
                 sqlQueryCategory,
                 new Object[] {categoryName},
@@ -487,33 +486,64 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     assert getJdbcTemplate() != null;
     return getJdbcTemplate().update(sqlDelete, charityId, programId);
 
-    // TODO Delete Orphan Programs in DB
+    // TODO Delete Orphan Programs in DB (Programs that are no longer tied to any Charity in the DB)
 
   }
 
   @Override
   public int delete(Charity charity) {
-    Map<String, Object> args = new HashMap<>();
-    args.put("charityTaxId", charity.getCharityTaxId());
 
-    String sqlQuery = "DELETE FROM charity where CHARITY_TAX_ID = :charityTaxId";
+    String sqlDeleteCharityCategory = "DELETE FROM charity_category where CHARITY_ID = ?";
+    var deleteCharityCategoryRow =
+        Objects.requireNonNull(getJdbcTemplate())
+            .update(sqlDeleteCharityCategory, charity.getCharityId());
+    System.out.println("Delete CharityCategory Row (count) " + deleteCharityCategoryRow);
+    // Delete Category if there are no other Charities left with the same Category
 
-    assert getJdbcTemplate() != null;
-    return getJdbcTemplate().update(sqlQuery, args);
-    // TODO Delete Category if there are no other Charities left with the same Category
-    // TODO Delete Program if there are no other Charities left with the same Program (for every
+    String sqlDeleteCharityProgram = "DELETE FROM charity_program where CHARITY_ID = ?";
+    var deleteCharityProgramRows =
+        getJdbcTemplate().update(sqlDeleteCharityProgram, charity.getCharityId());
+    System.out.println("Delete CharityProgram Rows (count) " + deleteCharityProgramRows);
+    // Delete Programs if there are no other Charities left with the same Program (for every
     // Program)
+
+    // Delete Charity in DB
+    String sqlQuery = "DELETE FROM charity where CHARITY_TAX_ID = ?";
+    return getJdbcTemplate().update(sqlQuery, charity.getCharityTaxId());
   }
 
   @Override
   public Charity findByCharityTaxId(String charityTaxId) {
     String sqlQuery = "SELECT * FROM charity WHERE CHARITY_TAX_ID = ?";
-    BeanPropertyRowMapper<Charity> charityRowMapper =
-        BeanPropertyRowMapper.newInstance(Charity.class);
 
     assert getJdbcTemplate() != null;
 
-    var charity = getJdbcTemplate().queryForObject(sqlQuery, charityRowMapper, charityTaxId);
+    var charity =
+        getJdbcTemplate()
+            .query(
+                sqlQuery,
+                new Object[] {charityTaxId},
+                rs -> {
+                  if (rs.next()) {
+                    Charity charityRetrieved = new Charity();
+                    charityRetrieved.setCharityId(rs.getInt("CHARITY_ID"));
+                    charityRetrieved.setCharityTaxId(rs.getString("CHARITY_TAX_ID"));
+                    charityRetrieved.setCharityName(rs.getString("CHARITY_NAME"));
+                    charityRetrieved.setCharityMission(rs.getString("CHARITY_MISSION"));
+                    charityRetrieved.setCharityWebAddress(rs.getString("CHARITY_WEB_ADDRESS"));
+                    charityRetrieved.setCharityFacebookAddress(
+                        rs.getString("CHARITY_FACEBOOK_ADDRESS"));
+                    charityRetrieved.setCharityTwitterAddress(
+                        rs.getString("CHARITY_TWITTER_ADDRESS"));
+                    return charityRetrieved;
+                  } else {
+                    return null;
+                  }
+                });
+
+    if (Objects.isNull(charity)) {
+      return null;
+    }
     var category = findCategoryForCharity(Objects.requireNonNull(charity));
     charity.setCharityCategory(category);
     var charityProgramsInDb = findProgramsForCharityIdInDB(charity.getCharityId());
