@@ -42,9 +42,15 @@ public class Main {
     charityZisize.setCharityCategory(disabilitiesUpdateRegular);
 
     var charityRowUpdatedRegular = charityService.update(charityZisize);
-    System.out.println("Charity Rows Updated : " + charityRowUpdated);
+    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular);
     Charity charityZisizeDB3 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
     System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
+
+    charityZisizeDB.setCharityPrograms(addPrograms());
+    var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
+    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular2);
+    Charity charityZisizeDB4 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
 
     //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
     //    Charity charityYMCA =
@@ -91,6 +97,15 @@ public class Main {
     //    }
 
     context.close();
+  }
+
+  private static List<Program> addPrograms() {
+    List<Program> programList = new ArrayList<>();
+    programList.add(new Program("Residential facility"));
+    programList.add(new Program("Social Work offices for psycho-social services"));
+    programList.add(new Program("Overprotective workshops"));
+    programList.add(new Program("Office based care"));
+    return programList;
   }
 
   private static Charity createCharity() {

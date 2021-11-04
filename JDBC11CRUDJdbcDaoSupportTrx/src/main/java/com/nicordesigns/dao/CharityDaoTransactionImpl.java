@@ -167,7 +167,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
       Integer charityCategoryRelId =
           CharityCategorySupportDao.findCategoryIdInCharityRelationshipRow(
-              this.getJdbcTemplate(), charity.getCharityId());
+              Objects.requireNonNull(this.getJdbcTemplate()), charity.getCharityId());
 
       System.out.println("Charity Category Relationship Category Id =  " + charityCategoryRelId);
 
@@ -307,6 +307,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
                 programKeyHolder);
 
     System.out.println("charityProgramRowInserted : " + charityProgramRowInserted);
+
     return Objects.requireNonNull(programKeyHolder.getKey()).intValue();
   }
 
@@ -452,13 +453,42 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
       System.out.println("Charity Category Relationship Row Updated");
     }
 
-    // TODO Update Charity Programs
-    var charityPrograms = charity.getCharityPrograms();
-    // find Program List by Charity Tax Id in DB (Relationship Table)
-    // find Program List in Charity to be updated
-    // Delete Program in DB that are not in the current Charity Program List
-    // Insert new Programs that are not in the DB Program List
+    var charityProgramsToUpdate = charity.getCharityPrograms();
+    var charityProgramsInDB = findProgramsForCharityIdInDB(charity.getCharityId());
+    System.out.println("charityProgramsInDB" + charityProgramsInDB);
+    var charityPrograms = new ArrayList<>(charityProgramsInDB);
+
+    for (Program program : charityProgramsToUpdate) {
+      System.out.println("Program to Update" + program);
+      if (charityProgramsInDB.contains(program)) {
+        charityPrograms.remove(program);
+      } else {
+        var insertedProgramId = insertProgramForCharity(program);
+        System.out.println("Inserted ProgramId : " + insertedProgramId);
+        var insertProgramIdCharityIdRelation =
+            insertCharityProgramRelationship(charity.getCharityId(), insertedProgramId);
+        System.out.println(
+            "Insert ProgramId CharityId Relation Row(s) : " + insertProgramIdCharityIdRelation);
+      }
+    }
+
+    for (Program program : charityPrograms) {
+      var rowsDeleted = deleteProgramForCharity(charity.getCharityId(), program.getProgramId());
+      System.out.println(rowsDeleted);
+    }
+
     return charityRow;
+  }
+
+  private int deleteProgramForCharity(int charityId, int programId) {
+
+    String sqlDelete = "DELETE FROM charity_program where CHARITY_ID = ? AND PROGRAM_ID = ?";
+
+    assert getJdbcTemplate() != null;
+    return getJdbcTemplate().update(sqlDelete, charityId, programId);
+
+    // TODO Delete Orphan Programs in DB
+
   }
 
   @Override
@@ -484,8 +514,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     assert getJdbcTemplate() != null;
 
     var charity = getJdbcTemplate().queryForObject(sqlQuery, charityRowMapper, charityTaxId);
-    var category = findCategoryForCharity(charity);
-    assert charity != null;
+    var category = findCategoryForCharity(Objects.requireNonNull(charity));
     charity.setCharityCategory(category);
     var charityProgramsInDb = findProgramsForCharityIdInDB(charity.getCharityId());
     charity.setCharityPrograms(charityProgramsInDb);
@@ -519,7 +548,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     Category category = null;
     var categoryId =
         CharityCategorySupportDao.findCategoryIdInCharityRelationshipRow(
-            this.getJdbcTemplate(), charity.getCharityId());
+            Objects.requireNonNull(this.getJdbcTemplate()), charity.getCharityId());
     if (categoryId != null) {
       category = CharityCategorySupportDao.findCategoryById(getJdbcTemplate(), categoryId);
     }
