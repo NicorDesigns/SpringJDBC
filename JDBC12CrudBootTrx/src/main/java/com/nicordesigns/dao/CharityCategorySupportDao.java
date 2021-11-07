@@ -3,7 +3,9 @@ package com.nicordesigns.dao;
 import com.nicordesigns.model.Category;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CharityCategorySupportDao {
 
   public static Category findCategoryById(JdbcTemplate jdbcTemplate, Integer categoryId) {

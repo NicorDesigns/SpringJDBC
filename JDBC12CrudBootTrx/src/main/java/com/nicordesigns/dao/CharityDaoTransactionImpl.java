@@ -3,11 +3,16 @@ package com.nicordesigns.dao;
 import com.nicordesigns.model.Category;
 import com.nicordesigns.model.Charity;
 import com.nicordesigns.model.Program;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +21,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Component
 public class CharityDaoTransactionImpl extends JdbcDaoSupport implements CharityDao {
+
+  @Autowired private DataSource dataSource;
+
+  @PostConstruct
+  private void initialize() {
+    setDataSource(dataSource);
+  }
 
   public CharityDaoTransactionImpl() {}
 
@@ -559,13 +572,11 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
   @Override
   public List<Charity> findAllCharities() {
     assert getJdbcTemplate() != null;
-    List<Charity> charityArrayList;
+    List<Charity> charityList;
     String sqlQueryCharityList = "SELECT * FROM charity";
-    charityArrayList = getJdbcTemplate().queryForList(sqlQueryCharityList, Charity.class);
-    for (Charity charity : charityArrayList) {
-      System.out.println(charity);
-    }
-    return charityArrayList;
+    charityList =
+        getJdbcTemplate().query(sqlQueryCharityList, new BeanPropertyRowMapper<>(Charity.class));
+    return charityList;
   }
 
   private List<Program> findProgramsForCharityIdInDB(int charityId) {

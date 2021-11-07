@@ -2,6 +2,7 @@ package com.nicordesigns.service;
 
 import com.nicordesigns.dao.CharityDao;
 import com.nicordesigns.model.Charity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,11 +12,7 @@ import java.util.List;
 @Component
 public class CharityServiceImpl implements CharityService {
 
-  private CharityDao charityDao;
-
-  public void setCharityDao(CharityDao charityDao) {
-    this.charityDao = charityDao;
-  }
+  @Autowired CharityDao charityDao;
 
   @Override
   @Transactional
