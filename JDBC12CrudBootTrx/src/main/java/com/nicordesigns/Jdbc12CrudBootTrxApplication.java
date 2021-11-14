@@ -12,7 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.Assert;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
@@ -72,64 +74,62 @@ public class Jdbc12CrudBootTrxApplication implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) {
-    //    Charity charityZisize = createCharity();
-    //
-    //    int charityId = charityService.createCharity(charityZisize);
-    //    logger.info("charityZisizeDB inserted : DB Generated charityId: " + charityId);
-    //
-    //    Charity charityZisizeDB =
-    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    //    logger.info("charityZisizeDB retrieved : " + charityZisizeDB);
-    //
-    //    // Update Charity Category with a new Category Type
-    //    Category disabilitiesUpdate = new Category("DISABILITIES UPDATE");
-    //    charityZisize.setCharityCategory(disabilitiesUpdate);
-    //
-    //    var charityRowUpdated = charityService.update(charityZisize);
-    //    logger.info("Charity Rows Updated : " + charityRowUpdated);
-    //
-    //    Charity charityZisizeDB2 =
-    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    //    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
-    //
-    //    // Update the Charity Category with an existing Category Type
-    //    Category disabilitiesUpdateRegular = new Category("DISABILITIES");
-    //    charityZisize.setCharityCategory(disabilitiesUpdateRegular);
-    //
-    //    var charityRowUpdatedRegular = charityService.update(charityZisize);
-    //    logger.info("Charity Rows Updated : " + charityRowUpdatedRegular);
-    //    Charity charityZisizeDB3 =
-    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    //    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
-    //
-    //    // Update the Charity with a different list of Programs
-    //    charityZisizeDB.setCharityPrograms(addPrograms());
-    //    var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
-    //    logger.info("Charity Rows Updated : " + charityRowUpdatedRegular2);
-    //    Charity charityZisizeDB4 =
-    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    //    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
+  public void run(String... args) throws SQLException {
+    // Demo no 1
+    Charity charityZisize = createCharity();
 
-    //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
-    //    Charity charityYMCA =
-    //        new Charity(
-    //            "XXXXXXXXXX1",
-    //            "YMCA South Africa ",
-    //            "YMCA is the oldest Christian Youth Development organisation in the world"
-    //                + "...reaching 65 million young people worldwide.  ",
-    //            "https://www.saymca.org.za/",
-    //            "https://www.facebook.com/YMCASouthAfrica/",
-    //            "https://twitter.com/ymca_sa");
-    //    charityYMCA.setCharityCategory(categoryYMCA);
-    //    charityYMCA.setCharityPrograms(addYMCAPrograms());
-    //    int ymcaCharityId = charityService.createCharity(charityYMCA);
-    //    logger.info(charityYMCA + " inserted : DB Generated charityId: " + ymcaCharityId);
-    //
-    //    var charityYMCADB1 = charityService.findByCharityTaxId("XXXXXXXXXX1");
-    //    logger.info(charityYMCADB1.toString());
-    //
-    //    // Delete the Charity in the DB
+    int charityId = charityService.createCharity(charityZisize);
+    logger.info("charityZisizeDB inserted : DB Generated charityId: " + charityId);
+
+    Charity charityZisizeDB = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    logger.info("charityZisizeDB retrieved : " + charityZisizeDB);
+
+    // Update Charity Category with a new Category Type
+    Category disabilitiesUpdate = new Category("DISABILITIES UPDATE");
+    charityZisize.setCharityCategory(disabilitiesUpdate);
+
+    var charityRowUpdated = charityService.update(charityZisize);
+    logger.info("Charity Rows Updated : " + charityRowUpdated);
+
+    Charity charityZisizeDB2 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
+
+    // Update the Charity Category with an existing Category Type
+    Category disabilitiesUpdateRegular = new Category("DISABILITIES");
+    charityZisize.setCharityCategory(disabilitiesUpdateRegular);
+
+    var charityRowUpdatedRegular = charityService.update(charityZisize);
+    logger.info("Charity Rows Updated : " + charityRowUpdatedRegular);
+    Charity charityZisizeDB3 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
+
+    // Update the Charity with a different list of Programs
+    charityZisizeDB.setCharityPrograms(addPrograms());
+    var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
+    logger.info("Charity Rows Updated : " + charityRowUpdatedRegular2);
+    Charity charityZisizeDB4 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    logger.info("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
+
+    // Demo no 2
+    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
+    Charity charityYMCA =
+        new Charity(
+            "XXXXXXXXXX1",
+            "YMCA South Africa ",
+            "YMCA is the oldest Christian Youth Development organisation in the world"
+                + "...reaching 65 million young people worldwide.  ",
+            "https://www.saymca.org.za/",
+            "https://www.facebook.com/YMCASouthAfrica/",
+            "https://twitter.com/ymca_sa");
+    charityYMCA.setCharityCategory(categoryYMCA);
+    charityYMCA.setCharityPrograms(addYMCAPrograms());
+    int ymcaCharityId = charityService.createCharity(charityYMCA);
+    logger.info(charityYMCA + " inserted : DB Generated charityId: " + ymcaCharityId);
+
+    var charityYMCADB1 = charityService.findByCharityTaxId("XXXXXXXXXX1");
+    logger.info(charityYMCADB1.toString());
+
+    // Delete the Charity in the DB
     //    var deleteCharityRowCount = charityService.delete(charityYMCADB1);
     //    logger.info("Delete Charity Row-Count " + deleteCharityRowCount);
     //    var charityYMCADB2 = charityService.findByCharityTaxId("XXXXXXXXXX1");
@@ -138,32 +138,33 @@ public class Jdbc12CrudBootTrxApplication implements CommandLineRunner {
     //    } else {
     //      logger.info("Charity has not been deleted from DB " + charityYMCADB2);
     //    }
-    //    Category categoryUSCA = new Category("RELIGION");
-    //    Charity charityUMCA =
-    //        new Charity(
-    //            "XXXXXXXXXX2",
-    //            "UMCA ",
-    //            "UCSA is a voluntary, non-racial, multicultural, interdenominational Christian
-    // organization.",
-    //            "http://vcsv.co.za/",
-    //            "https://www.facebook.com/UCSA.VCSV/",
-    //            "https://twitter.com/VCSV_UCSA");
-    //    charityUMCA.setCharityCategory(categoryUSCA);
-    //
-    //    int charityUMCAId = charityService.createCharity(charityUMCA);
-    //    logger.info(charityUMCA + " inserted : DB Generated charityId: " + charityUMCAId);
-    //
-    //    Charity charityUMCADB = charityService.findByCharityTaxId("XXXXXXXXXX2");
-    //    logger.info(charityUMCADB.toString());
-    //
-    //    var charityList = Arrays.asList(charityZisize, charityYMCA, charityUMCADB);
-    //    int[] insertResults = charityService.insertBatch(charityList);
-    //    int i = 0;
-    //    for (Charity charity : charityList) {
-    //      logger.info(charity.toString());
-    //      logger.info("int result : " + insertResults[i++]);
-    //    }
-    //
+
+    // Demo no 3 -
+    Category categoryUSCA = new Category("RELIGION");
+    Charity charityUMCA =
+        new Charity(
+            "XXXXXXXXXX2",
+            "UMCA ",
+            "UCSA is a voluntary, non-racial, multicultural, interdenominational Christian organization.",
+            "http://vcsv.co.za/",
+            "https://www.facebook.com/UCSA.VCSV/",
+            "https://twitter.com/VCSV_UCSA");
+    charityUMCA.setCharityCategory(categoryUSCA);
+
+    int charityUMCAId = charityService.createCharity(charityUMCA);
+    logger.info(charityUMCA + " inserted : DB Generated charityId: " + charityUMCAId);
+
+    Charity charityUMCADB = charityService.findByCharityTaxId("XXXXXXXXXX2");
+    logger.info(charityUMCADB.toString());
+
+    var charityList = Arrays.asList(charityZisize, charityYMCA, charityUMCADB);
+    int[] insertResults = charityService.insertBatch(charityList);
+    int i = 0;
+    for (Charity charity : charityList) {
+      logger.info(charity.toString());
+      logger.info("int result : " + insertResults[i++]);
+    }
+
     Assert.isTrue(
         charityService.findAllCharities().size() > 0, "There are Charities in the DB Table");
 

@@ -90,6 +90,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
       System.out.println("Finding Charity Programs for Charity " + charity.getCharityPrograms());
 
+      if (Objects.isNull(charity.getCharityPrograms())) return;
       var charityProgramsInDb = findProgramsListInDB(charity.getCharityPrograms());
       System.out.println("charityProgramsInDb = " + charityProgramsInDb);
 
@@ -170,7 +171,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
       var category = findCategoryByName(charity.getCharityCategory().getCategoryName());
 
-      Integer categoryId;
+      int categoryId;
       if (category == null) {
         categoryId = insertCategoryForCharity(charity.getCharityCategory().getCategoryName());
       } else {
@@ -396,8 +397,13 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
             + "?"
             + ")";
 
+    // JDBC6EmbeddedTomcatSpringConfigClass-1.0-SNAPSHOT.jar
     assert getJdbcTemplate() != null;
     // TODO Update Batch Update to include Categories and Charity Programs
+    // TODO Update the Charity Category and Charity Programs
+    //    for (int charityId : charityIdArray) {
+    //      var charity = findByCharityTaxId(x)
+    //    }
     return getJdbcTemplate()
         .batchUpdate(
             sqlInsertCharity,
@@ -576,6 +582,14 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
     String sqlQueryCharityList = "SELECT * FROM charity";
     charityList =
         getJdbcTemplate().query(sqlQueryCharityList, new BeanPropertyRowMapper<>(Charity.class));
+
+    for (Charity charity : charityList) {
+      var category = findCategoryForCharity(Objects.requireNonNull(charity));
+      charity.setCharityCategory(category);
+      var charityProgramsInDb = findProgramsForCharityIdInDB(charity.getCharityId());
+      charity.setCharityPrograms(charityProgramsInDb);
+    }
+
     return charityList;
   }
 

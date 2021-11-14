@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 @Configuration
 @ComponentScan(basePackages = {"com.nicordesigns"})
-public class AppConfig {
+public class SpringJDBCConfig {
 
   @Bean
   public DataSource dataSource() throws SQLException {
