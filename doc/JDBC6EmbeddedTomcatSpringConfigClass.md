@@ -26,7 +26,7 @@
 
     The template for this module is a basic Spring MVC Application.
     We will use Spring Annotations and Spring config classes
-    This module will use Spring App Config Java Classe to define the datasource bean
+    This module will use Spring App Config Java Classes to define the datasource bean
     It will use a Spring Web Config class to define the MVC ViewResolver Bean
     We will run Embedded Tomcat from a Spring Component
     We will use a DBHelloService Spring Component to present the Hello World Screen and
