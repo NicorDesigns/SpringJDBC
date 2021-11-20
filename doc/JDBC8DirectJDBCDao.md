@@ -20,7 +20,7 @@
 
 ### 4 create the Charity Model Object and its related Model Objects Program
 
-    For this run we will be implementing the FK and relationships between the Charity and Category in our Charity DB Table
+    For this run we will be implementing the relationships between the Charity and Category in our Charity Object Model Graph
 
 ### 5  Create the Charity DAO Interface and Charity DAO Implementation class
 
@@ -35,7 +35,7 @@
 ### 6  Create the Application with a Main Method that runs the insert and find methods
 
     We define our MariaDB Pool Data Source in the Spring beans.xml file
-    https://mariadb.com/kb/en/pool-datasource-implementation/
+    [https://mariadb.com/kb/en/pool-datasource-implementation/](https://mariadb.com/kb/en/pool-datasource-implementation/)
 
     We now also define our DAO class in the Spring beans.xml file
 
