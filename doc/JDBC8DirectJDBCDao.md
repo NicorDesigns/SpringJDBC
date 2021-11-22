@@ -41,11 +41,11 @@ We define our MariaDB Pool Data Source in the Spring beans.xml file
 
 We now also define our DAO class in the Spring beans.xml file
 
-We use the Spring ClassPathXmlApplicationContext to obtain the conext and the Spring Data Source bean
+We use the Spring ClassPathXmlApplicationContext to obtain the context and the Spring Data Source bean
 
 We create the DAO Implementation Object in the Main method
 
-Then we first create a new Charity Object and insert it using the DAO and then we find the inserted Charity using the
+Then we first create a new Charity Object and insert it using the DAO, and then we find the inserted Charity using the
 DAO
 
 ### 7 Run the App main method
