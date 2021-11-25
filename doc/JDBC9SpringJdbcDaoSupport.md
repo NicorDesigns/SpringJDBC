@@ -27,10 +27,10 @@
     
     Then we create the Charity DAO Interface and the Charity DAO Implementation
 
-    For the Implementation of the DAO we will use JAVA JDBC direct and not the SpringJDBC Template
+    For the Implementation of the DAO we will use the SpringJDBC Template (where we used JDBC Direct in JDBC7)
 
-    We will create a working insert Charity method and a working find Charity by TaxId method, which means we have
-    to manage all the database connections open and closing in our DAO Implementation
+    We will create a working insert Charity method and a working find Charity by TaxId method, which means all the
+    DB Connection Handling will now be done by the Spring JDBC Template
 
     Our methods will only work on the Charity Model Object for now and we won't be implementing the full object graph
     of the Charity
