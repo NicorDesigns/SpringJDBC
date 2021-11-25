@@ -9,13 +9,11 @@
         <module name="JDBC4EmbeddedTomcatJndiDataSource" />
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
-        <module name="JDBC8DirectJdbcDao" />
-        <module name="JDBC3TomcatJndiDataSource" />
-        <module name="JDBC11CRUDJdbcDaoSupportTrx" />
         <module name="MariaDBConnect" />
+        <module name="JDBC8DirectJdbcDao" />
         <module name="JDBC6EmbeddedTomcatSpringConfigClass" />
         <module name="JDBC9JdbcDaoSupport" />
-        <module name="JDBC10JdbcDaoSupportTransactions" />
+        <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
         <module name="JDBC7RegularDao" />
       </profile>
