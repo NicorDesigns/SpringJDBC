@@ -3,7 +3,6 @@ package com.nicordesigns.dao;
 import com.nicordesigns.model.Charity;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.sql.PreparedStatement;
@@ -17,8 +16,7 @@ public class JdbcTemplateCharityDaoImpl extends JdbcDaoSupport implements Charit
   @Override
   public int insert(Charity charity) {
 
-    // Step 5 will demo update Batch Inserting of Charities
-    // Step 4 of Insert with Template Tutorial will use PreparedStatementSetter
+    // Step 1 of Insert Tutorial
     String sqlInsertCharity =
         "INSERT INTO charity"
             + "(CHARITY_TAX_ID, "
@@ -40,17 +38,16 @@ public class JdbcTemplateCharityDaoImpl extends JdbcDaoSupport implements Charit
     return getJdbcTemplate()
         .update(
             sqlInsertCharity,
-            new PreparedStatementSetter() {
-              @Override
-              public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setString(1, charity.getCharityTaxId());
-                preparedStatement.setString(2, charity.getCharityName());
-                preparedStatement.setString(3, charity.getCharityMission());
-                preparedStatement.setString(4, charity.getCharityWebAddress());
-                preparedStatement.setString(5, charity.getCharityFacebookAddress());
-                preparedStatement.setString(6, charity.getCharityTwitterAddress());
-              }
-            });
+            charity.getCharityTaxId(),
+            charity.getCharityName(),
+            charity.getCharityMission(),
+            charity.getCharityWebAddress(),
+            charity.getCharityFacebookAddress(),
+            charity.getCharityTwitterAddress());
+
+    // Step 2 of Insert Tutorial
+    // return getJdbcTemplate()
+    //   .update(new InsertCharityStatementCreator(charity));
 
     // Step 3 of Insert with Template Tutorial
     //    return getJdbcTemplate().update(
@@ -89,40 +86,28 @@ public class JdbcTemplateCharityDaoImpl extends JdbcDaoSupport implements Charit
     //
     //            }}
     //    );
-    // Step 2 of Insert Tutorial
-    // return getJdbcTemplate()
-    //    .update(new InsertCharityStatementCreator(charity));
 
-    //   Step 1 of Insert Tutorial
-    //    String sqlInsertCharity =
-    //        "INSERT INTO charity"
-    //            + "(CHARITY_TAX_ID, "
-    //            + "CHARITY_NAME, "
-    //            + "CHARITY_MISSION, "
-    //            + "CHARITY_WEB_ADDRESS, "
-    //            + "CHARITY_FACEBOOK_ADDRESS, "
-    //            + "CHARITY_TWITTER_ADDRESS) "
-    //            + "VALUES("
-    //            + "?, "
-    //            + "?, "
-    //            + "?, "
-    //            + "?, "
-    //            + "?, "
-    //            + "?"
-    //            + ")";
+    // Step 4 of Insert with Template Tutorial will use PreparedStatementSetter
     //
+    //    assert getJdbcTemplate() != null;
     //    return getJdbcTemplate()
     //        .update(
     //            sqlInsertCharity,
-    //            charity.getCharityTaxId(),
-    //            charity.getCharityName(),
-    //            charity.getCharityMission(),
-    //            charity.getCharityWebAddress(),
-    //            charity.getCharityFacebookAddress(),
-    //            charity.getCharityTwitterAddress());
+    //            new PreparedStatementSetter() {
+    //              @Override
+    //              public void setValues(PreparedStatement preparedStatement) throws SQLException {
+    //                preparedStatement.setString(1, charity.getCharityTaxId());
+    //                preparedStatement.setString(2, charity.getCharityName());
+    //                preparedStatement.setString(3, charity.getCharityMission());
+    //                preparedStatement.setString(4, charity.getCharityWebAddress());
+    //                preparedStatement.setString(5, charity.getCharityFacebookAddress());
+    //                preparedStatement.setString(6, charity.getCharityTwitterAddress());
+    //              }
+    //            });
+
   }
 
-  // Step 6 is to demo batch update
+  // Step 5 will demo update Batch Inserting of Charities
   @Override
   public int[] insertBatch(final List<Charity> charityList) {
     String sqlInsertCharity =
