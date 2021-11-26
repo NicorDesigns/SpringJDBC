@@ -23,13 +23,15 @@ public class CharityDaoImpl implements CharityDao {
 
   @Override
   public Charity insert(Charity charity) throws SQLException {
+    Charity result = null;
 
     ResultSet charityGeneratedKeySet;
 
     int insertedCharityId = 0;
 
     try (Connection connection = dataSource.getConnection()) {
-      connection.setAutoCommit(false); // Use Transactional Commit capability of MariaDB
+      // Use Transactional Commit capability of MariaDB
+      connection.setAutoCommit(false);
 
       String sqlInsertCharity =
           "INSERT INTO charity"
@@ -51,6 +53,7 @@ public class CharityDaoImpl implements CharityDao {
         preparedStatementInsertCharity.setString(5, charity.getCharityFacebookAddress());
         preparedStatementInsertCharity.setString(6, charity.getCharityTwitterAddress());
 
+        // 1. Insert Charity
         int charityRowsInserted = preparedStatementInsertCharity.executeUpdate();
 
         if (charityRowsInserted == 1) {
@@ -63,8 +66,10 @@ public class CharityDaoImpl implements CharityDao {
             charity.setCharityId(insertedCharityId);
           }
 
+          // 2.(a) Find Category for Charity from DB
           Category category = findCategoryForCharity(charity, connection);
 
+          // 2.(b) Update Charity Category Relationship Table
           Category charityCategory = updateCharityCategoryRow(charity, connection, category);
 
           if (charityCategory != null) {
@@ -75,11 +80,11 @@ public class CharityDaoImpl implements CharityDao {
 
           connection.commit();
           connection.setAutoCommit(true);
-          return charity;
+          result = charity;
         }
 
       } catch (SQLException sqlException) {
-        connection.rollback();
+        connection.rollback(); // Roll back transaction on SQL Exception
         connection.setAutoCommit(true);
         throw sqlException;
       }
@@ -87,11 +92,24 @@ public class CharityDaoImpl implements CharityDao {
       sqlException.printStackTrace();
       throw sqlException;
     }
+    if (result == null) {
+      System.out.println(
+          "On success > 0 - Returning DB Generated Charity Id : " + insertedCharityId);
+      result = charity;
+    }
 
-    System.out.println("On success > 0 - Returning DB Generated Charity Id : " + insertedCharityId);
-    return charity;
+    return result;
   }
 
+  /**
+   * Update Charity Category Relationship table row.
+   *
+   * @param charity model object.
+   * @param connection data source connection obtained from Pool
+   * @param category model object
+   * @return Category model object from update
+   * @throws SQLException in order to bubble up exception
+   */
   private Category updateCharityCategoryRow(
       Charity charity, Connection connection, Category category) throws SQLException {
 
@@ -99,6 +117,7 @@ public class CharityDaoImpl implements CharityDao {
 
     if (category == null) {
       System.out.println("Charity Category not found in DB " + charity.getCharityCategory());
+      // 3. Insert new Category for Charity in Category Table
       int categoryId = insertCategoryForCharity(charity, connection);
       if (categoryId != 0) {
         category = new Category(categoryId, charity.getCharityCategory().getCategoryName());
@@ -123,6 +142,15 @@ public class CharityDaoImpl implements CharityDao {
     return category;
   }
 
+  /**
+   * Insert row in Charity Category Relationship table
+   *
+   * @param connection db connection obtained from Data Source Connection Pool
+   * @param charityId Index Key of Charity Row in table
+   * @param categoryId Index Key of Category Row in table
+   * @return int number of Charity-Category Relationship Rows Inserted
+   * @throws SQLException to bubble up
+   */
   private int insertCharityCategoryRelationship(
       Connection connection, int charityId, int categoryId) throws SQLException {
 
@@ -158,6 +186,15 @@ public class CharityDaoImpl implements CharityDao {
     return charityCategoryRelationshipRowsInserted;
   }
 
+  /**
+   * Update Charity-Category Relationship
+   *
+   * @param connection db connection obtained from Data Source Connection Pool
+   * @param charityId Index Key of Charity Row in table
+   * @param categoryId Index Key of Category Row in table
+   * @return int number of Charity-Category Relationship Rows Inserted
+   * @throws SQLException to bubble up
+   */
   private int updateCharityCategoryRelationship(
       Connection connection, int charityId, int categoryId) throws SQLException {
 
@@ -192,6 +229,14 @@ public class CharityDaoImpl implements CharityDao {
     return charityCategoryRelationshipRowsUpdated;
   }
 
+  /**
+   * Insert Category For Charity
+   *
+   * @param charity object model
+   * @param connection db connection obtained from Data Source Connection Pool
+   * @return int inserted DB Generated Category Id
+   * @throws SQLException to bubble up
+   */
   private int insertCategoryForCharity(Charity charity, Connection connection) throws SQLException {
     String sqlInsertCategory = "INSERT INTO category (CATEGORY_NAME) VALUES (?)";
 
