@@ -20,7 +20,8 @@ Update the Parent POM and global dependency version numbers
 
 ### 4 create the Charity Model Object and its related Model Objects Program
 
-For this run we will be implementing the FK and relationships between the Charity and Category in our Charity DB Table
+For this run we will be implementing the relationships between the Charity and Category in our Charity Object Model
+Graph
 
 ### 5  Create the Charity DAO Interface and Charity DAO Implementation class
 
