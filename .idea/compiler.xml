@@ -10,8 +10,8 @@
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
         <module name="MariaDBConnect" />
-        <module name="JDBC8DirectJdbcDao" />
         <module name="JDBC6EmbeddedTomcatSpringConfigClass" />
+        <module name="JDBC8DirectJdbcDao" />
         <module name="JDBC9JdbcDaoSupport" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
@@ -20,10 +20,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JDBC1" target="11" />
-      <module name="JDBC10JdbcDaoSupportTransactions" target="11" />
-      <module name="JDBC11CRUDJdbcDaoSupportTrx" target="11" />
-      <module name="JDBC12SpringBoot" target="11" />
-      <module name="JDBC1SpringBoot" target="11" />
       <module name="JDBC2SpringDataSource" target="11" />
       <module name="JDBC3TomcatJndiDataSource" target="11" />
       <module name="JDBC4EmbeddedTomcatJndiDataSource" target="11" />
@@ -37,11 +33,5 @@
       <module name="pom-root" target="1.5" />
       <module name="SpringJDBC" target="11" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="JDBC12SpringBoot" options="-parameters" />
-      <module name="JDBC1SpringBoot" options="-parameters" />
-    </option>
   </component>
 </project>
