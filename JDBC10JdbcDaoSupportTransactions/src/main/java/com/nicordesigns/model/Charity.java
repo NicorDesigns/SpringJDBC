@@ -14,7 +14,6 @@ public class Charity {
   private Category charityCategory;
 
   public Charity() {}
-  // private List<Program> charityPrograms;
 
   public Charity(
       String charityTaxId,
