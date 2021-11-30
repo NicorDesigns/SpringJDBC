@@ -1,6 +1,8 @@
+## Using a DAO with Spring JdbcDaoSupport to be able to do full range of CRUD with transactions that can be rolled back.
+
 ## Updating the database with a more rigorous relationship entity model.
 
-## Using a DAO with Spring JdbcDaoSupport to be able to do full range of CRUD with transactions that can be rolled back.
+## Introducing the Spring Service Layer for transactions.
 
 (This is a build out of JDBC8DirectJdbcDao and JDBC9SpringJdbcDaoSupport )
 
@@ -27,15 +29,19 @@ Update the Parent POM and global dependency version numbers
 First we create the Charity Model Object and its related Model Object Category For this run we will introduce a one to
 one mapping between Charity and Category
 
-Then we create the Charity DAO Interface and the Charity DAO Implementation
+Then we create the Charity DAO Interface and the Charity DAO Implementation using JdbcDaoSupport
 
-For the Implementation of the DAO we will use the Spring JDBC Template for Charities and use the Spring Transaction
-Manager tom manage updating the relationship tables in the database
+For the Implementation of the DAO calls we will use the Spring JDBC Template for Charities and use the Spring
+Transaction Manager to manage updating the relationship tables in the database
 
-We will create a working Create, Read, Update and Delete functionality accross the full object graph of the Charity
-Table and Object Model
+We will create a working Create, Read, Update and Delete functionality across the full object graph of the Charity Table
+and Object Model
 
-### 5  Create the Application with a Main Method that runs the insert and find methods
+### 5  Create the Spring Service Layer Interface and Implementation
+
+We will wrap the Create Charity and Read Charity functions in a Spring annotated transaction.
+
+### 6  Create the Application with a Main Method that runs the insert and find methods
 
 We define our Transactional Data Source in the Spring beans.xml file
 
@@ -46,7 +52,7 @@ We test the DAO Implementation Object in the Main method
 
 Here we will test the full CRUD capability
 
-### 6 Run the App main method
+### 7 Run the App main method
 
 First clear out the DB Charity Table in such a way that we do not have any FK relations and tables set up. Run the Main
 method.

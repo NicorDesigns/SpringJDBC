@@ -18,7 +18,7 @@ Add all the required Spring Framework dependencies for the Spring Context and Da
 
 Update the Parent POM and global dependency version numbers
 
-### 4 create the Charity Model Object and its related Model Objects Program
+### 4 Create the Charity Model Object and its related Model Objects Program
 
 For this run we will be implementing the FK and relationships between the Charity and Category in our Charity DB Table
 
