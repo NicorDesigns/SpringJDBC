@@ -16,12 +16,14 @@
         <module name="JDBC10JdbcDaoSupportTransactions" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
+        <module name="JDBC11CRUDJdbcDaoSupportTrx" />
         <module name="JDBC7RegularDao" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JDBC1" target="11" />
       <module name="JDBC10JdbcDaoSupportTransactions" target="11" />
+      <module name="JDBC11CRUDJdbcDaoSupportTrx" target="11" />
       <module name="JDBC2SpringDataSource" target="11" />
       <module name="JDBC3TomcatJndiDataSource" target="11" />
       <module name="JDBC4EmbeddedTomcatJndiDataSource" target="11" />

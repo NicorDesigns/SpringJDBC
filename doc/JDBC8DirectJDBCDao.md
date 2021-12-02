@@ -1,4 +1,4 @@
-### Update the DAO with JDBC for full CRUD capability, using Connection Pooling to get the Data Source and expanding the Charity Object Model to include its Category Types
+### Update the DAO with JDBC for full transactional CRUD capability, using Connection Pooling to get the Data Source and expanding the Charity Object Model to include its Category Types
 
 ### 1 Using IntelliJ we create a new Java Maven Module (JDBC8DirectJdbcDao)
 
@@ -18,15 +18,18 @@ Add all the required Spring Framework dependencies for the Spring Context and Da
 
 Update the Parent POM and global dependency version numbers
 
-### 4 Create the Charity Model Object and its related Model Objects Program
+### 4 create the Charity Model Object and its related Model Objects Program
 
-For this run we will be implementing the FK and relationships between the Charity and Category in our Charity DB Table
+For this run we will be implementing the relationships between the Charity and Category in our Charity Object Model
+Graph
 
 ### 5  Create the Charity DAO Interface and Charity DAO Implementation class
 
 Then we create the Charity DAO Interface and the Charity DAO Implementation
 
-For the Implementation of the DAO we will still use JAVA JDBC directly and not the SpringJDBC Template
+For the Implementation of the DAO we will still use JAVA JDBC directly and not the SpringJDBC Template We will also
+introduce the use of Transactions with
+JDBC [https://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html](https://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html)
 
 We will expand on our previous insert and find method to get a full CRUD DAO Implementation We will add a Category
 Object to our Charity Object Model We will use try with resources so that Java will manage the Open and Closing of DB
@@ -35,15 +38,15 @@ Resources
 ### 6  Create the Application with a Main Method that runs the insert and find methods
 
 We define our MariaDB Pool Data Source in the Spring beans.xml file
-https://mariadb.com/kb/en/pool-datasource-implementation/
+[https://mariadb.com/kb/en/pool-datasource-implementation/](https://docs.oracle.com/javase/tutorial/jdbc/basics/transactions.html)
 
 We now also define our DAO class in the Spring beans.xml file
 
-We use the Spring ClassPathXmlApplicationContext to obtain the conext and the Spring Data Source bean
+We use the Spring ClassPathXmlApplicationContext to obtain the context and the Spring Data Source bean
 
 We create the DAO Implementation Object in the Main method
 
-Then we first create a new Charity Object and insert it using the DAO and then we find the inserted Charity using the
+Then we first create a new Charity Object and insert it using the DAO, and then we find the inserted Charity using the
 DAO
 
 ### 7 Run the App main method
