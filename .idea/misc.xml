@@ -11,6 +11,12 @@
         <option value="$PROJECT_DIR$/JDBC4EmbeddedTomacatJndiDataSource/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/pom.xml" />
+        <option value="$PROJECT_DIR$/JDBC11CRUDJdbcDaoSupportTrx/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />

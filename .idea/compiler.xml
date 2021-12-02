@@ -13,7 +13,6 @@
         <module name="JDBC6EmbeddedTomcatSpringConfigClass" />
         <module name="JDBC8DirectJdbcDao" />
         <module name="JDBC9JdbcDaoSupport" />
-        <module name="JDBC10JdbcDaoSupportTransactions" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
         <module name="JDBC7RegularDao" />
@@ -21,7 +20,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JDBC1" target="11" />
-      <module name="JDBC10JdbcDaoSupportTransactions" target="11" />
       <module name="JDBC2SpringDataSource" target="11" />
       <module name="JDBC3TomcatJndiDataSource" target="11" />
       <module name="JDBC4EmbeddedTomcatJndiDataSource" target="11" />
