@@ -51,19 +51,12 @@ public class Main {
             "https://www.facebook.com/UCSA.VCSV/",
             "https://twitter.com/VCSV_UCSA");
     charityUMCA.setCharityCategory(categoryUSCA);
-    int charityId = charityService.createCharity(charityUMCA);
-    System.out.println(charityUMCA + " inserted : DB Generated charityId: " + charityId);
 
-    Charity charity1 = charityService.findByCharityTaxId("XXXXXXXXXX2");
-    System.out.println(charity1);
+    int charityIdUMCA = charityService.createCharity(charityUMCA);
+    System.out.println(charityUMCA + " inserted : DB Generated charityId: " + charityIdUMCA);
 
-    //    var charityList = Arrays.asList(charityZisize, charityYMCA, charityUMCA);
-    //    int[] insertResults = charityDao.insertBatch(charityList);
-    //    int i = 0;
-    //    for (Charity charity : charityList) {
-    //      System.out.println(charity);
-    //      System.out.println("int result : " + insertResults[i++]);
-    //    }
+    Charity charityUMCAinDB = charityService.findByCharityTaxId("XXXXXXXXXX2");
+    System.out.println(charityUMCAinDB);
 
     context.close();
   }
