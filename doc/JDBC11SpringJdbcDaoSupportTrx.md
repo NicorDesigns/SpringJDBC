@@ -50,8 +50,13 @@
 
 ### 6 Run the App main method
 
-    First clear out the DB Charity Table in such a way that we do not have any FK relations and tables set up.
+    First clear out the DB Charity Table in such a way that we do have FK relations and tables set up.
     Run the Main method.
+    Demo Step 1 : Update and retrieve a Charity from the DB with one to one Category relationship
+                  (Here we start implementing Foreign Keys in the Category_Charity Relationship Table
+
+    Demo Step 2 : Update the Charity with a different list of Programs following the logic in Step 1
+                  (Clear out the DB Tables first and then add foreign keys to charity_category and charity_program relationship tables)
 
     In IntelliJ -> Select Main -> Right Click -> Run Main:main -> Look at the Charity Table Entry
     --> Look at the Charity Object that was retrieved from the database
