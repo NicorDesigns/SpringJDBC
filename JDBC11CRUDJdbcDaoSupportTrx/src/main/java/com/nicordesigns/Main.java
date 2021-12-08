@@ -20,59 +20,68 @@ public class Main {
 
     CharityService charityService = context.getBean("charityService", CharityServiceImpl.class);
 
-    Charity charityZisize = createCharity();
+    //    // TODO Demo Step 1 : Update and retrieve a Charity from the DB with one to one Category
+    // relationship
+    //    Charity charityZisize = createZisizeCharity();
+    //
+    //    int charityId = charityService.createCharity(charityZisize);
+    //    System.out.println("charityZisizeDB inserted : DB Generated charityId: " + charityId);
+    //
+    //    Charity charityZisizeDB =
+    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    //    System.out.println("charityZisizeDB retrieved : " + charityZisizeDB);
+    //
+    //    // 1. (a) Update Charity Category with a new Category Type
+    //    Category disabilitiesUpdate = new Category("DISABILITIES UPDATE");
+    //    charityZisize.setCharityCategory(disabilitiesUpdate);
+    //
+    //    var charityRowUpdated = charityService.update(charityZisize);
+    //    System.out.println("Charity Rows Updated : " + charityRowUpdated);
+    //
+    //    Charity charityZisizeDB2 =
+    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    //    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
+    //
+    //    // 1. (b) Update the Charity Category with an existing Category Type
+    //    Category disabilitiesUpdateRegular = new Category("DISABILITIES");
+    //    charityZisize.setCharityCategory(disabilitiesUpdateRegular);
+    //
+    //    var charityRowUpdatedRegular = charityService.update(charityZisize);
+    //    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular);
+    //    Charity charityZisizeDB3 =
+    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    //    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
+    //
+    //    // TODO Demo Step 2. Update the Charity with a different list of Programs
+    //    charityZisizeDB.setCharityPrograms(addPrograms());
+    //    var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
+    //    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular2);
+    //    Charity charityZisizeDB4 =
+    // charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
+    //    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
+    //
+    //    // TODO Demo Step 3. Add a new Charity with a single Category and Multiple Programs to the
+    // DB
+    //    // and return it
+    //    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
+    //    Charity charityYMCA =
+    //        new Charity(
+    //            "XXXXXXXXXX1",
+    //            "YMCA South Africa ",
+    //            "YMCA is the oldest Christian Youth Development organisation in the world"
+    //                + "...reaching 65 million young people worldwide.  ",
+    //            "https://www.saymca.org.za/",
+    //            "https://www.facebook.com/YMCASouthAfrica/",
+    //            "https://twitter.com/ymca_sa");
+    //    charityYMCA.setCharityCategory(categoryYMCA);
+    //    charityYMCA.setCharityPrograms(addYMCAPrograms());
+    //    int ymcaCharityId = charityService.createCharity(charityYMCA);
+    //    System.out.println(charityYMCA + " inserted : DB Generated charityId: " + ymcaCharityId);
 
-    int charityId = charityService.createCharity(charityZisize);
-    System.out.println("charityZisizeDB inserted : DB Generated charityId: " + charityId);
-
-    Charity charityZisizeDB = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println("charityZisizeDB retrieved : " + charityZisizeDB);
-
-    // Update Charity Category with a new Category Type
-    Category disabilitiesUpdate = new Category("DISABILITIES UPDATE");
-    charityZisize.setCharityCategory(disabilitiesUpdate);
-
-    var charityRowUpdated = charityService.update(charityZisize);
-    System.out.println("Charity Rows Updated : " + charityRowUpdated);
-
-    Charity charityZisizeDB2 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB2);
-
-    // Update the Charity Category with an existing Category Type
-    Category disabilitiesUpdateRegular = new Category("DISABILITIES");
-    charityZisize.setCharityCategory(disabilitiesUpdateRegular);
-
-    var charityRowUpdatedRegular = charityService.update(charityZisize);
-    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular);
-    Charity charityZisizeDB3 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB3);
-
-    // Update the Charity with a different list of Programs
-    charityZisizeDB.setCharityPrograms(addPrograms());
-    var charityRowUpdatedRegular2 = charityService.update(charityZisizeDB);
-    System.out.println("Charity Rows Updated : " + charityRowUpdatedRegular2);
-    Charity charityZisizeDB4 = charityService.findByCharityTaxId(charityZisize.getCharityTaxId());
-    System.out.println("Updated charityZisize in DB retrieved : " + charityZisizeDB4);
-
-    Category categoryYMCA = new Category("COMMUNITY DEVELOPMENT");
-    Charity charityYMCA =
-        new Charity(
-            "XXXXXXXXXX1",
-            "YMCA South Africa ",
-            "YMCA is the oldest Christian Youth Development organisation in the world"
-                + "...reaching 65 million young people worldwide.  ",
-            "https://www.saymca.org.za/",
-            "https://www.facebook.com/YMCASouthAfrica/",
-            "https://twitter.com/ymca_sa");
-    charityYMCA.setCharityCategory(categoryYMCA);
-    charityYMCA.setCharityPrograms(addYMCAPrograms());
-    int ymcaCharityId = charityService.createCharity(charityYMCA);
-    System.out.println(charityYMCA + " inserted : DB Generated charityId: " + ymcaCharityId);
-
+    // TODO Step 4. Delete the Charity in the DB
     var charityYMCADB1 = charityService.findByCharityTaxId("XXXXXXXXXX1");
     System.out.println(charityYMCADB1);
 
-    // Delete the Charity in the DB
     var deleteCharityRowCount = charityService.delete(charityYMCADB1);
     System.out.println("Delete Charity Row-Count " + deleteCharityRowCount);
     var charityYMCADB2 = charityService.findByCharityTaxId("XXXXXXXXXX1");
@@ -81,32 +90,25 @@ public class Main {
     } else {
       System.out.println("Charity has not been deleted from DB " + charityYMCADB2);
     }
-    //    Category categoryUSCA = new Category("RELIGION");
-    //    Charity charityUMCA =
-    //        new Charity(
-    //            "XXXXXXXXXX2",
-    //            "UMCA ",
-    //            "UCSA is a voluntary, non-racial, multicultural, interdenominational Christian
-    // organization.",
-    //            "http://vcsv.co.za/",
-    //            "https://www.facebook.com/UCSA.VCSV/",
-    //            "https://twitter.com/VCSV_UCSA");
-    //    charityUMCA.setCharityCategory(categoryUSCA);
-    //
-    //
-    //    int charityId = charityService.createCharity(charityUMCA);
-    //    System.out.println(charityUMCA + " inserted : DB Generated charityId: " + charityId);
-    //
-    //    Charity charity1 = charityService.findByCharityTaxId("XXXXXXXXXX2");
-    //    System.out.println(charity1);
 
-    //    var charityList = Arrays.asList(charityZisize, charityYMCA, charityUMCA);
-    //    int[] insertResults = charityDao.insertBatch(charityList);
-    //    int i = 0;
-    //    for (Charity charity : charityList) {
-    //      System.out.println(charity);
-    //      System.out.println("int result : " + insertResults[i++]);
-    //    }
+    // TODO Step 5. Add another charity  to the DB
+
+    Category categoryUSCA = new Category("RELIGION");
+    Charity charityUMCA =
+        new Charity(
+            "XXXXXXXXXX2",
+            "UMCA ",
+            "UCSA is a voluntary, non-racial, multicultural, interdenominational Christian organization.",
+            "http://vcsv.co.za/",
+            "https://www.facebook.com/UCSA.VCSV/",
+            "https://twitter.com/VCSV_UCSA");
+    charityUMCA.setCharityCategory(categoryUSCA);
+
+    int charityId = charityService.createCharity(charityUMCA);
+    System.out.println(charityUMCA + " inserted : DB Generated charityId: " + charityId);
+
+    Charity charity1 = charityService.findByCharityTaxId("XXXXXXXXXX2");
+    System.out.println(charity1);
 
     context.close();
   }
@@ -127,7 +129,7 @@ public class Main {
     return programList;
   }
 
-  private static Charity createCharity() {
+  private static Charity createZisizeCharity() {
 
     Charity charityZisize =
         new Charity(

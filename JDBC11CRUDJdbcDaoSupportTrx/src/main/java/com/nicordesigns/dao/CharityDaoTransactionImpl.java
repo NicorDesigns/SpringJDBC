@@ -75,6 +75,9 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
     if (charityRowInserted == 1) {
 
+      // If there are no Programs to update then return
+      if (Objects.isNull(charity.getCharityPrograms())) return;
+
       System.out.println("Finding Charity Programs for Charity " + charity.getCharityPrograms());
 
       var charityProgramsInDb = findProgramsListInDB(charity.getCharityPrograms());
@@ -127,6 +130,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
   }
 
   private List<Program> findProgramsListInDB(List<Program> charityProgramList) {
+
     System.out.println("findProgramsForCharity " + charityProgramList);
 
     List<Program> charityPrograms = new ArrayList<>();
@@ -331,9 +335,6 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
 
   public Category findCategoryByName(String categoryName) {
 
-    //    BeanPropertyRowMapper<Category> charityRowMapper =
-    //        BeanPropertyRowMapper.newInstance(Category.class);
-
     String sqlQueryCategory = "SELECT * FROM category WHERE CATEGORY_NAME = ?";
     var category_id =
         Objects.requireNonNull(getJdbcTemplate())
@@ -427,7 +428,7 @@ public class CharityDaoTransactionImpl extends JdbcDaoSupport implements Charity
                 charity.getCharityTaxId());
 
     var charityCategoryUpdate = charity.getCharityCategory();
-    // find Category by Charity Tax Id in DB
+    // find Category by Charity TaxId in DB
     var charityCategoryInDb = findCategoryForCharity(charity);
 
     // Update Category Name in DB with Charity Category Name
