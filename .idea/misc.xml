@@ -9,6 +9,9 @@
         <option value="$PROJECT_DIR$/pom-root/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/JDBC4EmbeddedTomacatJndiDataSource/pom.xml" />
+        <option value="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/src/main/pom.xml" />
+        <option value="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/pom.xml" />
+        <option value="$PROJECT_DIR$/JDBC11CRUDJdbcDaoSupportTrx/pom.xml" />
       </list>
     </option>
   </component>
