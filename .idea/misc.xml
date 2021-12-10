@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/src/main/pom.xml" />
         <option value="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/pom.xml" />
         <option value="$PROJECT_DIR$/JDBC11CRUDJdbcDaoSupportTrx/pom.xml" />
+        <option value="$PROJECT_DIR$/JDBC12/pom.xml" />
       </list>
     </option>
   </component>

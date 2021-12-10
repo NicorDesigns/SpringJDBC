@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/JDBC1/JDBC1.iml" filepath="$PROJECT_DIR$/JDBC1/JDBC1.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/JDBC10JdbcDaoSupportTransactions.iml" filepath="$PROJECT_DIR$/JDBC10JdbcDaoSupportTransactions/JDBC10JdbcDaoSupportTransactions.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC11CRUDJdbcDaoSupportTrx/JDBC11CRUDJdbcDaoSupportTrx.iml" filepath="$PROJECT_DIR$/JDBC11CRUDJdbcDaoSupportTrx/JDBC11CRUDJdbcDaoSupportTrx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JDBC12/JDBC12.iml" filepath="$PROJECT_DIR$/JDBC12/JDBC12.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC2SpringDataSource/JDBC2SpringDataSource.iml" filepath="$PROJECT_DIR$/JDBC2SpringDataSource/JDBC2SpringDataSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC3TomcatJndiDataSource/JDBC3TomcatJndiDataSource.iml" filepath="$PROJECT_DIR$/JDBC3TomcatJndiDataSource/JDBC3TomcatJndiDataSource.iml" />
       <module fileurl="file://$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/JDBC4EmbeddedTomcatJndiDataSource.iml" filepath="$PROJECT_DIR$/JDBC4EmbeddedTomcatJndiDataSource/JDBC4EmbeddedTomcatJndiDataSource.iml" />

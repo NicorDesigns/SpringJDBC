@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Charity List</title>
+</head>
+
+<body>
+<h1>charity List</h1>
+<table border="1">
+    <thead>
+    </thead>
+    <tbody>
+    <tr th:each="charity: ${charities}">
+        <td th:text="${charity.getCharityId()}"/>
+        <td th:text="${{charity.getCharityName()}}"/>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

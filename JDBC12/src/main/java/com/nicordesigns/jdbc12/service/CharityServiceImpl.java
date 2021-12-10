@@ -1,16 +1,23 @@
-package com.nicordesigns.service;
+package com.nicordesigns.jdbc12.service;
 
-import com.nicordesigns.dao.CharityDao;
-import com.nicordesigns.model.Charity;
+import com.nicordesigns.jdbc12.dao.CharityDao;
+import com.nicordesigns.jdbc12.model.Charity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
 @Component
 public class CharityServiceImpl implements CharityService {
 
-  private CharityDao charityDao;
+  @Autowired private CharityDao charityDao;
+
+  @PostConstruct
+  private void initialize() {
+    setCharityDao(charityDao);
+  }
 
   public void setCharityDao(CharityDao charityDao) {
     this.charityDao = charityDao;
