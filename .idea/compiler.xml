@@ -18,7 +18,6 @@
         <module name="JDBC10JdbcDaoSupportTransactions" />
         <module name="JDBC5EmbeddedTomcatSpringDataSource" />
         <module name="JDBC7RegularDao" />
-        <module name="JDBC12" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
