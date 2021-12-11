@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="JDBC12SpringBoot:war">
+    <output-path>$PROJECT_DIR$/JDBC12SpringBoot/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>false</exploded>
+        <module>JDBC12SpringBoot</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
+    <root id="archive" name="JDBC12SpringBoot-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="JDBC12SpringBoot:war exploded" />
+    </root>
+  </artifact>
+</component>

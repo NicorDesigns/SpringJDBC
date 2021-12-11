@@ -1,0 +1,59 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="JDBC11SpringBoot:war exploded">
+    <output-path>$PROJECT_DIR$/JDBC11SpringBoot/target/JDBC11SpringBoot-0.0.1-SNAPSHOT</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>JDBC11SpringBoot</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="JDBC11SpringBoot" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.6.1" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.6.1" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.6.1" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.7" />
+          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.7" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.14.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.14.1" />
+          <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.32" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.29" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:4.0.3" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.32" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.6.1" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-json:2.6.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.13.0" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot:2.6.1" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.6.1" />
+          <element id="library" level="project" name="Maven: org.mariadb.jdbc:mariadb-java-client:2.7.4" />
+          <element id="library" level="project" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.13" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.13" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/JDBC11SpringBoot/target/JDBC11SpringBoot-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="JDBC11SpringBoot/web/Web" />
+    </root>
+  </artifact>
+</component>
