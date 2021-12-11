@@ -9,6 +9,7 @@
         <module name="JDBC4EmbeddedTomcatJndiDataSource" />
         <module name="JDBC2SpringDataSource" />
         <module name="JDBC1" />
+        <module name="JDBC12JdbcSpringBoot" />
         <module name="JDBC8DirectJdbcDao" />
         <module name="JDBC3TomcatJndiDataSource" />
         <module name="JDBC11CRUDJdbcDaoSupportTrx" />
