@@ -1,5 +1,9 @@
 ## Using Spring Boot to combine Spring Web with embedded Tomcat
 
+[https://spring.io/guides/gs/relational-data-access/](https://spring.io/guides/gs/relational-data-access/)
+[https://spring.io/guides/gs/serving-web-content/](https://spring.io/guides/gs/serving-web-content/)
+JDBC6 & JDBC11
+
 ### 1 Using IntelliJ we create a new Spring Initialzr Module (JDBC12JdbcSpringBoot)
 
 #### File -> New Module -> Spring Initialzr

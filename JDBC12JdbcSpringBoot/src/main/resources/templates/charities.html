@@ -6,15 +6,21 @@
 </head>
 
 <body>
-<h1>charity List</h1>
+<h1>Charity List</h1>
 <table border="1">
     <thead>
     </thead>
     <tbody>
     <tr th:each="charity: ${charities}">
+        <td th:text="${{charity.getCharityTaxId()}}"/>
         <td th:text="${charity.getCharityId()}"/>
         <td th:text="${{charity.getCharityName()}}"/>
-    </tr>
+        <td th:text="${{charity.getCharityMission()}}"/>
+        <td th:text="${{charity.getCharityWebAddress()}}"/>
+        <td th:text="${{charity.getCharityFacebookAddress()}}"/>
+        <td th:text="${{charity.getCharityTwitterAddress()}}"/>
+        <td th:text="${{charity.getCharityCategory().getCategoryName()}}"/>
+
     </tbody>
 </table>
 </body>
