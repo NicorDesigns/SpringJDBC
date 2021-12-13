@@ -34,8 +34,11 @@ Run mvn clean install again (test will pass because bean has been picked up)
 
 ### 4 Copy over the following Packages
 
-Model -> Same as used in JDBC11   
-DAO -> JDBC11 with elaborations on Component, Post Construct and Autowired Annotations Service -> Layer
+Model -> Same as used in JDBC11
+
+DAO -> JDBC11 with elaborations on Component, Post Construct and Autowired Annotations
+
+Service -> Layer
 
 ### 5 Add the landing page, thymeleaf charites template page and CharityController
 
