@@ -1,16 +1,16 @@
 ## Our Spring JDBC Development setup
 
-Installation & Configuration
+### Installation & Configuration
 
-OpenJDK 11
+1. OpenJDK 11
 
-Git & Github
+2. Git & Github
 
-IntelliJ
+3. IntelliJ
 
-MariaDB
+4. MariaDB
 
-Maven 3.6
+5. Maven 3.6
 
-Tomcat 8.5
+6. Tomcat 8.5
 

@@ -2,39 +2,39 @@
 
 An introduction to JDBC, JNDI and Spring JDBC with Tomcat and Spring JDBC Support:
 
-[Development Environment Setup Overview](doc/DevEnvironmentSetupOverview.md)
+1. [Development Environment Setup Overview](doc/DevEnvironmentSetupOverview.md)
 
-[IntelliJ Tomcat Setup](doc/IntelliJTomcatSetup.md)
+2. [IntelliJ Tomcat Setup](doc/IntelliJTomcatSetup.md)
 
-[IntelliJ MariaDB Setup](doc/IntelliJMariaDBSetup.md)
+3. [IntelliJ MariaDB Setup](doc/IntelliJMariaDBSetup.md)
 
-[Importing this project into IntelliJ](doc/GitImportIntelliJ.md)
+4. [Importing this project into IntelliJ](doc/GitImportIntelliJ.md)
 
-[Seeding a MariaDB database in IntelliJ](doc/SeedingMariaDB.md)
+5. [Seeding a MariaDB database in IntelliJ](doc/SeedingMariaDB.md)
 
-[Basic JDBC Connection with DriverManager & Connection URL](doc/JDBC1DriverManagerConnect.md)
+6. [Basic JDBC Connection with DriverManager & Connection URL](doc/JDBC1DriverManagerConnect.md)
 
-[JDBC Connection with DataSource defined as Spring Bean in application.xml](doc/JDBC2DataSourceConnectSpring.md)
+7. [JDBC Connection with DataSource defined as Spring Bean in application.xml](doc/JDBC2DataSourceConnectSpring.md)
 
-[Connecting with a JNDI dataSource in Tomcat 8.5](doc/JDBC3TomcatJNDIDataSourceConnect.md)
+8. [Connecting with a JNDI dataSource in Tomcat 8.5](doc/JDBC3TomcatJNDIDataSourceConnect.md)
 
-[Embedded Tomcat with JNDI](doc/JDBC4EmbeddedTomcatJNDIDataSource.md)
+9. [Embedded Tomcat with JNDI](doc/JDBC4EmbeddedTomcatJNDIDataSource.md)
 
-[Embedded Tomcat with Spring Context and Data Source Bean](doc/JDBC5EmbeddedTomcatSpringDataSource.md)
+10. [Embedded Tomcat with Spring Context and Data Source Bean](doc/JDBC5EmbeddedTomcatSpringDataSource.md)
 
-[Using Spring Annotation Config in Embedded Tomcat](doc/JDBC6EmbeddedTomcatSpringConfigClass.md)
+11. [Using Spring Annotation Config in Embedded Tomcat](doc/JDBC6EmbeddedTomcatSpringConfigClass.md)
 
-[Create a DAO with traditional direct JDBC using Spring Config with XML Beans](doc/JDBC7RegularDao.md)
+12. [Create a DAO with traditional direct JDBC using Spring Config with XML Beans](doc/JDBC7RegularDao.md)
 
-[Create a DAO with traditional JDBC Spring Config Annotations](doc/JDBC8DirectJDBCDao.md)
+13. [Create a DAO with traditional JDBC Spring Config Annotations](doc/JDBC8DirectJDBCDao.md)
 
-[Using a DAO with Spring JdbcDaoSupport](doc/JDBC9SpringJdbcDaoSupport.md)
+14. [Using a DAO with Spring JdbcDaoSupport](doc/JDBC9SpringJdbcDaoSupport.md)
 
-[Using Spring JdbcDaoSupport with Transactions](doc/JDBC10SpringJdbcDaoSupportTransactions.md)
+15. [Using Spring JdbcDaoSupport with Transactions](doc/JDBC10SpringJdbcDaoSupportTransactions.md)
 
-[Using a DAO with Spring JdbcDaoSupport to do transactional CRUD](doc/JDBC11SpringJdbcDaoSupportTrx.md)
+16. [Using a DAO with Spring JdbcDaoSupport to do transactional CRUD](doc/JDBC11SpringJdbcDaoSupportTrx.md)
 
-[Using Spring Boot with Spring JDBC and Embedded Tomcat](doc/JDBC12SpringBootJdbc.md)
+17. [Using Spring Boot with Spring JDBC and Embedded Tomcat](doc/JDBC12SpringBootJdbc.md)
 
 
 
