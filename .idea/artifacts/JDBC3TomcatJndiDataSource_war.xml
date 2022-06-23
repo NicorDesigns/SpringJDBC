@@ -3,10 +3,8 @@
     <output-path>$PROJECT_DIR$/JDBC3TomcatJndiDataSource/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <exploded>false</exploded>
         <module>JDBC3TomcatJndiDataSource</module>
         <packaging>war</packaging>
-        <unpackNestedArchives>false</unpackNestedArchives>
       </options>
     </properties>
     <root id="archive" name="JDBC3TomcatJndiDataSource-1.0-SNAPSHOT.war">

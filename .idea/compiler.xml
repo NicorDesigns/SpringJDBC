@@ -38,6 +38,7 @@
       <module name="MariaDBConnect" target="11" />
       <module name="pom-root" target="1.5" />
       <module name="SpringJDBC" target="11" />
+      <module name="wrapper" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
